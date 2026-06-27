@@ -18,6 +18,13 @@ import {
   getDocs
 } from "firebase/firestore";
 import {
+  getLocalComments,
+  addLocalComment,
+  getLocalReports,
+  saveLocalReports,
+  addLocalNotification
+} from "../lib/dbFallback";
+import {
   Search,
   Filter,
   CheckCircle,
@@ -41,9 +48,10 @@ import PDFExport from "./PDFExport";
 interface AdminDashboardProps {
   profile: UserProfile;
   reports: Report[];
+  onReportsUpdated?: (updatedList: Report[]) => void;
 }
 
-export default function AdminDashboard({ profile, reports }: AdminDashboardProps) {
+export default function AdminDashboard({ profile, reports, onReportsUpdated }: AdminDashboardProps) {
   const [selectedReport, setSelectedReport] = React.useState<Report | null>(null);
   const [comments, setComments] = React.useState<Comment[]>([]);
   const [commentText, setCommentText] = React.useState("");
@@ -74,7 +82,7 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
       });
       setComments(items);
     }, (error) => {
-      console.warn("Real-time comment listener failed, falling back to empty.", error);
+      console.warn("Real-time comment listener failed, falling back to standard fetch.", error);
       // Fallback without orderBy
       const fbQuery = query(collection(db, "comments"), where("reportId", "==", selectedReport.id));
       getDocs(fbQuery).then((snapshot) => {
@@ -83,6 +91,9 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
           items.push({ id: docSnap.id, ...docSnap.data() } as Comment);
         });
         setComments(items.sort((a,b) => a.createdAt.localeCompare(b.createdAt)));
+      }).catch((fetchErr) => {
+        console.warn("Standard comment fetch failed, using LocalStorage:", fetchErr);
+        setComments(getLocalComments(selectedReport.id));
       });
     });
 
@@ -92,9 +103,9 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
   const handleStatusChange = async (newStatus: ReportStatus) => {
     if (!selectedReport || updatingStatus) return;
     setUpdatingStatus(true);
+    const now = new Date().toISOString();
 
     try {
-      const now = new Date().toISOString();
       const reportRef = doc(db, "reports", selectedReport.id);
       
       // 1. Update status
@@ -130,7 +141,42 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
       // Update local panel state
       setSelectedReport((prev) => prev ? { ...prev, status: newStatus, updatedAt: now } : null);
     } catch (err) {
-      console.error("Failed to update status:", err);
+      console.warn("Failed to update status on Firestore, updating LocalStorage fallback:", err);
+      
+      // Update reports list in fallback storage
+      const localReports = getLocalReports();
+      const updatedList = localReports.map((r) => 
+        r.id === selectedReport.id ? { ...r, status: newStatus, updatedAt: now } : r
+      );
+      saveLocalReports(updatedList);
+      if (onReportsUpdated) {
+        onReportsUpdated(updatedList);
+      }
+
+      // Add auto-comment locally
+      const savedComment = addLocalComment({
+        reportId: selectedReport.id,
+        userId: profile.uid,
+        userName: `System (${profile.displayName})`,
+        userRole: profile.role,
+        text: `Incident status updated to [${newStatus}] by Municipal Dispatch.`,
+        createdAt: now,
+      });
+      setComments((prev) => [...prev, savedComment]);
+
+      // Add notification locally
+      addLocalNotification({
+        userId: selectedReport.createdBy,
+        reportId: selectedReport.id,
+        reportTitle: selectedReport.title,
+        type: "status_change",
+        message: `Your report for "${selectedReport.title}" has been updated to ${newStatus}!`,
+        read: false,
+        createdAt: now,
+      });
+
+      // Update local panel state
+      setSelectedReport((prev) => prev ? { ...prev, status: newStatus, updatedAt: now } : null);
     } finally {
       setUpdatingStatus(false);
     }
@@ -141,20 +187,23 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
     if (!commentText.trim() || !selectedReport || submittingComment) return;
 
     setSubmittingComment(true);
-    try {
-      const newComment = {
-        reportId: selectedReport.id,
-        userId: profile.uid,
-        userName: profile.displayName || "Admin",
-        userRole: profile.role,
-        text: commentText.trim(),
-        createdAt: new Date().toISOString(),
-      };
+    const newCommentData = {
+      reportId: selectedReport.id,
+      userId: profile.uid,
+      userName: profile.displayName || "Admin",
+      userRole: profile.role,
+      text: commentText.trim(),
+      createdAt: new Date().toISOString(),
+    };
 
-      await addDoc(collection(db, "comments"), newComment);
+    try {
+      await addDoc(collection(db, "comments"), newCommentData);
       setCommentText("");
     } catch (err) {
-      console.error("Failed to add comment:", err);
+      console.warn("Failed to add comment to Firestore, saving to LocalStorage:", err);
+      const savedComment = addLocalComment(newCommentData);
+      setComments((prev) => [...prev, savedComment]);
+      setCommentText("");
     } finally {
       setSubmittingComment(false);
     }

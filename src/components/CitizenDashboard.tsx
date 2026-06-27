@@ -19,6 +19,14 @@ import {
   deleteDoc
 } from "firebase/firestore";
 import {
+  getLocalComments,
+  addLocalComment,
+  getLocalNotifications,
+  addLocalNotification,
+  markLocalNotificationRead,
+  saveLocalReports,
+} from "../lib/dbFallback";
+import {
   Plus,
   Clock,
   CheckCircle,
@@ -84,7 +92,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
       });
       setComments(items);
     }, (error) => {
-      console.warn("Real-time comment listener failed, falling back to empty. Maybe order-by index missing on firestore.", error);
+      console.warn("Real-time comment listener failed, falling back to standard fetch.", error);
       // Fallback without orderBy
       const fbQuery = query(collection(db, "comments"), where("reportId", "==", selectedReport.id));
       getDocs(fbQuery).then((snapshot) => {
@@ -93,6 +101,9 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
           items.push({ id: docSnap.id, ...docSnap.data() } as Comment);
         });
         setComments(items.sort((a,b) => a.createdAt.localeCompare(b.createdAt)));
+      }).catch((fetchErr) => {
+        console.warn("Standard comment fetch failed, using LocalStorage:", fetchErr);
+        setComments(getLocalComments(selectedReport.id));
       });
     });
 
@@ -122,6 +133,9 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
           items.push({ id: docSnap.id, ...docSnap.data() } as Notification);
         });
         setNotifications(items.sort((a,b) => b.createdAt.localeCompare(a.createdAt)));
+      }).catch((fetchErr) => {
+        console.warn("Standard notifications fetch failed, using LocalStorage:", fetchErr);
+        setNotifications(getLocalNotifications(profile.uid));
       });
     });
 
@@ -133,20 +147,23 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
     if (!commentText.trim() || !selectedReport || submittingComment) return;
 
     setSubmittingComment(true);
-    try {
-      const newComment = {
-        reportId: selectedReport.id,
-        userId: profile.uid,
-        userName: profile.displayName || "Citizen",
-        userRole: profile.role,
-        text: commentText.trim(),
-        createdAt: new Date().toISOString(),
-      };
+    const newCommentData = {
+      reportId: selectedReport.id,
+      userId: profile.uid,
+      userName: profile.displayName || "Citizen",
+      userRole: profile.role,
+      text: commentText.trim(),
+      createdAt: new Date().toISOString(),
+    };
 
-      await addDoc(collection(db, "comments"), newComment);
+    try {
+      await addDoc(collection(db, "comments"), newCommentData);
       setCommentText("");
     } catch (err) {
-      console.error("Failed to add comment:", err);
+      console.warn("Failed to add comment to Firestore, saving to LocalStorage:", err);
+      const savedComment = addLocalComment(newCommentData);
+      setComments((prev) => [...prev, savedComment]);
+      setCommentText("");
     } finally {
       setSubmittingComment(false);
     }
@@ -157,7 +174,9 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
       const notifRef = doc(db, "notifications", notifId);
       await updateDoc(notifRef, { read: true });
     } catch (err) {
-      console.error("Failed to mark read:", err);
+      console.warn("Failed to mark read on Firestore, saving to LocalStorage:", err);
+      markLocalNotificationRead(notifId);
+      setNotifications((prev) => prev.map(n => n.id === notifId ? { ...n, read: true } : n));
     }
   };
 

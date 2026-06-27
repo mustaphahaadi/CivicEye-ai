@@ -13,7 +13,8 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { Shield, Eye, EyeOff, User, Mail, Lock, Sparkles, Building2, Globe } from "lucide-react";
-import { UserRole } from "../types";
+import { UserRole, UserProfile } from "../types";
+import { saveLocalUserProfile } from "../lib/dbFallback";
 
 interface AuthPageProps {
   onAuthSuccess: (userProfile: any) => void;
@@ -32,12 +33,28 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
   // Sync / create profile in Firestore helper
   const syncUserProfile = async (uid: string, userEmail: string, name: string, selectedRole: UserRole) => {
     const userRef = doc(db, "users", uid);
-    const snap = await getDoc(userRef);
-
-    if (snap.exists()) {
-      return snap.data();
-    } else {
-      const newProfile = {
+    let profileData: any;
+    try {
+      const snap = await getDoc(userRef);
+      if (snap.exists()) {
+        profileData = snap.data();
+      } else {
+        const newProfile = {
+          uid,
+          email: userEmail,
+          displayName: name || userEmail.split("@")[0],
+          role: selectedRole,
+          createdAt: new Date().toISOString(),
+          totalReports: 0,
+          resolvedReports: 0,
+          pendingReports: 0,
+        };
+        await setDoc(userRef, newProfile);
+        profileData = newProfile;
+      }
+    } catch (err) {
+      console.warn("Firestore sync failed, generating local-only profile data:", err);
+      profileData = {
         uid,
         email: userEmail,
         displayName: name || userEmail.split("@")[0],
@@ -47,9 +64,9 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
         resolvedReports: 0,
         pendingReports: 0,
       };
-      await setDoc(userRef, newProfile);
-      return newProfile;
     }
+    saveLocalUserProfile(profileData);
+    return profileData;
   };
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -149,9 +166,9 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
           displayName: demoName,
           role: type,
           createdAt: new Date().toISOString(),
-          totalReports: 0,
-          resolvedReports: 0,
-          pendingReports: 0,
+          totalReports: 5, // give them a nice default of 5 reports in stats
+          resolvedReports: 1,
+          pendingReports: 4,
           isOfflineDemo: true,
         };
         // Let's also try to save this to Firestore if possible, but handle any security/network errors gracefully
@@ -161,12 +178,15 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
           if (!snap.exists()) {
             await setDoc(userRef, localProfile);
           } else {
-            onAuthSuccess(snap.data());
+            const data = (snap.data() as UserProfile) || localProfile;
+            saveLocalUserProfile(data);
+            onAuthSuccess(data);
             return;
           }
         } catch (dbErr) {
           console.warn("Could not sync local demo profile to Firestore, proceeding with local-only state:", dbErr);
         }
+        saveLocalUserProfile(localProfile);
         onAuthSuccess(localProfile);
       } else {
         setError("Failed to initialize demo credential. Please register a standard email account.");

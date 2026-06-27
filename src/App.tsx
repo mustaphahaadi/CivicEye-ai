@@ -8,6 +8,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc, getDocs, collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { auth, db } from "./firebase";
 import { UserProfile, Report } from "./types";
+import { getLocalReports, saveLocalReports, getLocalUserProfile } from "./lib/dbFallback";
 
 import LandingPage from "./components/LandingPage";
 import AuthPage from "./components/AuthPage";
@@ -62,7 +63,31 @@ export default function App() {
               setActivePage("citizen_dashboard");
             }
           } else {
-            // Safe fallback if document hasn't synced yet
+            // Check local fallback
+            const localProf = getLocalUserProfile(firebaseUser.uid);
+            if (localProf) {
+              setProfile(localProf);
+              setActivePage(localProf.role === "authority" ? "admin_dashboard" : "citizen_dashboard");
+            } else {
+              // Safe fallback if document hasn't synced yet
+              const fallbackProfile: UserProfile = {
+                uid: firebaseUser.uid,
+                email: firebaseUser.email || "",
+                displayName: firebaseUser.displayName || firebaseUser.email?.split("@")[0] || "Citizen",
+                role: "citizen",
+                createdAt: new Date().toISOString(),
+              };
+              setProfile(fallbackProfile);
+              setActivePage("citizen_dashboard");
+            }
+          }
+        } catch (err) {
+          console.error("Failed to restore user profile:", err);
+          const localProf = getLocalUserProfile(firebaseUser.uid);
+          if (localProf) {
+            setProfile(localProf);
+            setActivePage(localProf.role === "authority" ? "admin_dashboard" : "citizen_dashboard");
+          } else {
             const fallbackProfile: UserProfile = {
               uid: firebaseUser.uid,
               email: firebaseUser.email || "",
@@ -73,8 +98,6 @@ export default function App() {
             setProfile(fallbackProfile);
             setActivePage("citizen_dashboard");
           }
-        } catch (err) {
-          console.error("Failed to restore user profile:", err);
         }
       } else {
         setUser(null);
@@ -97,6 +120,7 @@ export default function App() {
         items.push(docSnap.data() as Report);
       });
       setReports(items);
+      saveLocalReports(items);
     }, (error) => {
       console.warn("Real-time reports listener failed, falling back to standard fetch.", error);
       // Fallback without orderBy
@@ -105,7 +129,13 @@ export default function App() {
         snapshot.forEach((docSnap) => {
           items.push(docSnap.data() as Report);
         });
-        setReports(items.sort((a,b) => b.createdAt.localeCompare(a.createdAt)));
+        const sorted = items.sort((a,b) => b.createdAt.localeCompare(a.createdAt));
+        setReports(sorted);
+        saveLocalReports(sorted);
+      }).catch((fetchErr) => {
+        console.warn("Standard fetch for reports failed, using LocalStorage fallback:", fetchErr);
+        const localItems = getLocalReports();
+        setReports(localItems);
       });
     });
 
@@ -307,6 +337,7 @@ export default function App() {
           <AdminDashboard
             profile={profile}
             reports={reports}
+            onReportsUpdated={(updated) => setReports(updated)}
           />
         )}
 

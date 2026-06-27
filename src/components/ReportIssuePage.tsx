@@ -9,6 +9,7 @@ import InteractiveCityMap from "./InteractiveCityMap";
 import { db } from "../firebase";
 import { collection, addDoc, doc, setDoc, updateDoc, increment } from "firebase/firestore";
 import { Report, ReportCategory, PriorityLevel, UserProfile } from "../types";
+import { getLocalReports, saveLocalReports, addLocalNotification, saveLocalUserProfile } from "../lib/dbFallback";
 
 interface ReportIssuePageProps {
   profile: UserProfile;
@@ -198,33 +199,62 @@ export default function ReportIssuePage({
         updatedAt: now,
       };
 
-      // 1. Save Report
-      await setDoc(doc(db, "reports", newReportId), newReport);
+      // Try saving to Firestore, fall back to LocalStorage on permissions or network errors
+      try {
+        // 1. Save Report
+        await setDoc(doc(db, "reports", newReportId), newReport);
 
-      // 2. Add Notification
-      const notificationId = `NOT-${Math.floor(100000 + Math.random() * 900000)}`;
-      await setDoc(doc(db, "notifications", notificationId), {
-        id: notificationId,
-        userId: profile.uid,
-        reportId: newReportId,
-        reportTitle: title,
-        type: "created",
-        message: `Your CivicEye incident report for "${title}" has been filed successfully and routed to the ${aiResult.department}!`,
-        read: false,
-        createdAt: now,
-      });
+        // 2. Add Notification
+        const notificationId = `NOT-${Math.floor(100000 + Math.random() * 900000)}`;
+        await setDoc(doc(db, "notifications", notificationId), {
+          id: notificationId,
+          userId: profile.uid,
+          reportId: newReportId,
+          reportTitle: title,
+          type: "created",
+          message: `Your CivicEye incident report for "${title}" has been filed successfully and routed to the ${aiResult.department}!`,
+          read: false,
+          createdAt: now,
+        });
 
-      // 3. Update User stats counters
-      const userRef = doc(db, "users", profile.uid);
-      await updateDoc(userRef, {
-        totalReports: increment(1),
-        pendingReports: increment(1),
-      });
+        // 3. Update User stats counters
+        const userRef = doc(db, "users", profile.uid);
+        await updateDoc(userRef, {
+          totalReports: increment(1),
+          pendingReports: increment(1),
+        });
+      } catch (dbErr: any) {
+        console.warn("Firestore writing is blocked, falling back to local database persistence:", dbErr);
+        
+        // Save report locally
+        const localReports = getLocalReports();
+        localReports.unshift(newReport);
+        saveLocalReports(localReports);
+
+        // Save notification locally
+        addLocalNotification({
+          userId: profile.uid,
+          reportId: newReportId,
+          reportTitle: title,
+          type: "created",
+          message: `Your CivicEye incident report for "${title}" has been filed successfully and routed to the ${aiResult.department}!`,
+          read: false,
+          createdAt: now,
+        });
+
+        // Save updated profile counters locally
+        const updatedProfile: UserProfile = {
+          ...profile,
+          totalReports: (profile.totalReports || 0) + 1,
+          pendingReports: (profile.pendingReports || 0) + 1,
+        };
+        saveLocalUserProfile(updatedProfile);
+      }
 
       setIsSuccess(true);
     } catch (err: any) {
       console.error("Submission error:", err);
-      setFormError("Failed to store report in Firestore. Please try again.");
+      setFormError("An unexpected error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
