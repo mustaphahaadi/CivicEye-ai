@@ -209,7 +209,7 @@ export default function App() {
 
   // Pure Authentication Panel View
   if (activePage === "auth" && !user) {
-    return <AuthPage onAuthSuccess={handleAuthSuccess} />;
+    return <AuthPage onAuthSuccess={handleAuthSuccess} onBackToLanding={() => setActivePage("landing")} />;
   }
 
   return (
