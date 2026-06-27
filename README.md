@@ -1,64 +1,85 @@
-# CivicEye - Smart AI City Platform
+# CivicEye — Municipal Intelligence Platform
 
-CivicEye is an AI-powered Smart City Incident portal that enables citizens to report community hazards—including potholes, flooding, illegal dumping, broken streetlights, water leakages, fallen trees, and power outages. Using Google Gemini 2.5 Flash, the platform analyzes images and text to classify severity, gauge confidence levels, assign emergency priorities, draft public safety risk reports, and route work orders instantly to correct municipal departments.
+CivicEye is an enterprise-grade Smart City Incident Portal designed to bridge the gap between citizens reporting local community hazards and municipal utility dispatch crews. Powered by state-of-the-art multimodal AI, CivicEye transforms raw, unstructured citizen reports—photos, coordinates, and descriptions—into validated, prioritized, and formatted work orders in under 15 seconds.
+
+---
+
+## 🏛️ Executive Visual Identity & Layout
+The platform has been meticulously refined to present a polished, high-contrast, professional administrative theme:
+- **Corporate Blue & Amber Palette**: Styled with deep `#0B1528` (Slate Blue) headings, pristine off-white canvases, and amber `#FFC000` status markers.
+- **Top Bar Utility Banner**: Real-time operating hours and a verified hot-dial lifeline prominently displayed in the header.
+- **Dual-Column Command Centers**: Intuitive, distraction-free authentication panels pairing live operations statistics with SSL-secured access forms.
+- **Integrated Action Controls**: High-visibility direct "Report Issue" buttons sitting right alongside "Access Portal" controls for instantaneous citizen action.
 
 ---
 
 ## 🚀 Key Platform Features
 
-1. **Intelligent AI Inspection**: Image and text analysis powered by **Gemini 2.5 Flash** for instant classification and risk assessments.
-2. **Interactive City Map**: A stylized blueprint telemetry panel allowing citizens to drop pins and visualize neighborhood-wide incident logs.
-3. **Citizen Dashboard**: Track reported tickets from submission through Pending, Under Review, and Resolved status transitions in real-time.
-4. **Dispatcher Action Center**: Government authority views with search queries, priority sorting, status updates, and interactive comments syncing.
-5. **Interactive AI Chatbot**: A friendly virtual smart-city representative that has live knowledge of filed reports to answer citizen concerns.
-6. **QR Code Link Sharing & PDF Print Exporter**: Scan QR codes to share reports or download formal vector PDFs with digital government headers.
-7. **Developer Quick-Pass**: Single-click quick accounts to instantly experience both Citizen and Authority flows during evaluations.
+### 1. Multimodal AI Dispatch Engine
+- Powered by the **Google Gemini SDK**, analyzing uploaded images to classify issues (potholes, water leakages, blackouts, hazards).
+- Automatic risk scoring, priority mapping, safety guidelines recommendation, and department routing.
+
+### 2. Interactive Telemetry Geo-Map
+- Map coordinates capture from browser geolocators.
+- Fully interactive blueprints showing real-time hazard density clusters and status colors.
+
+### 3. Citizen Incident Hub
+- Submit reports in seconds without requiring registration.
+- Track progression through active states: **Pending**, **Under Review**, and **Resolved**.
+- Access interactive live chats directly with assigned municipal dispatch technicians on individual report logs.
+
+### 4. Dispatcher Command Panel
+- Powerful search queries, category filters, and high-priority triage toggles.
+- Take ownership of tickets, write internal progress comments, and trigger status updates instantly.
+
+### 5. AI Civic Representative Chatbot
+- A virtual smart-city AI agent that reads active database reports to handle live citizen inquiries regarding municipal updates.
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Frontend**: React, Tailwind CSS, Recharts, Lucide Icons, Motion (animations)
-- **Backend Service**: Express.js & Vite middleware integration
-- **AI Core**: Google GenAI SDK (`@google/genai`) with Gemini 2.5 Flash
-- **Cloud Database**: Firebase Firestore with Authentication
+- **Client Runtime**: React with Vite, Tailwind CSS, Lucide Icons, and Motion.
+- **Core Database**: Firebase Firestore for durable multi-user telemetry and persistence.
+- **Identity Engine**: Firebase Authentication with SSO integration.
+- **Backend Proxy**: Express.js server bundling client routing and secure Gemini API tunnels.
 
 ---
 
-## ⚙️ Setup & Installation
+## ⚙️ Setup & Configuration
 
 ### 1. Environment Variables Configuration
-Duplicate `.env.example` as `.env` and configure your secret credentials:
+Duplicate `.env.example` as `.env` and configure your API keys:
 ```env
 GEMINI_API_KEY="your-google-ai-studio-gemini-key"
 APP_URL="your-application-deployment-url"
 ```
 
 ### 2. Local Installation
-To install core libraries and start the local development server:
+To bootstrap dependencies and boot the development server:
 ```bash
-# Install package dependencies
+# Install packages
 npm install
 
-# Start development full-stack server
+# Run the dev server
 npm run dev
 ```
 
 ### 3. Production Compilation Build
-To compile static production assets and bundle the Node.js server:
+To bundle the high-performance client assets and CJS server:
 ```bash
-# Build Vite client assets and esbuild server bundle
+# Compile and bundle
 npm run build
 
-# Start production server
+# Start the Node process
 npm start
 ```
 
 ---
 
-## 🧑‍💻 Developer Verification Guidelines
-During live evaluations or hackathon demonstrations:
-1. Click **Portal Login** or **Report Issue** to access the login sheet.
-2. Under **Developer Quick-Pass Portal**, click **As Citizen** or **As Dispatcher** to log in instantly.
-3. As a **Citizen**, click **File Incident Pin**, upload a photo, type a description, drop a pin on the telemetry grid, click **Analyze with AI**, and then click **File Civic Report**.
-4. Log out and click **As Dispatcher** to view the live ticket, post dispatcher comments, change work status, and observe live analytical updates.
+## 🧑‍💻 Developer Verification Workflow
+Experience both sides of the civic pipeline using our built-in test profiles:
+1. Click **Access Portal** or **Report Issue** to enter the clean, dual-column authorization suite.
+2. Locate the **Developer Quick-Pass Portal** card at the bottom of the form.
+3. **Citizen Demo**: Click **As Citizen** to instantly load a resident profile. Drop a telemetry pin, upload a photo, click **Analyze with AI** to view live Gemini insights, and hit **File Civic Report**.
+4. **Dispatcher Demo**: Log out and click **As Dispatcher**. Look up the submitted issue, claim the ticket, post an official update comment, and transition the status to **Resolved**.
