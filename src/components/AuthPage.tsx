@@ -84,7 +84,9 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
       }
     } catch (err: any) {
       console.error("Auth error:", err);
-      if (err.code === "auth/user-not-found" || err.code === "auth/wrong-password" || err.code === "auth/invalid-credential") {
+      if (err.code === "auth/operation-not-allowed") {
+        setError("Email/Password authentication is disabled in your Firebase Console. Please enable it in Firebase -> Authentication -> Sign-in method, or use 'Google Single Sign-In' / 'Developer Quick-Pass Portal' below.");
+      } else if (err.code === "auth/user-not-found" || err.code === "auth/wrong-password" || err.code === "auth/invalid-credential") {
         setError("Invalid email or password.");
       } else if (err.code === "auth/email-already-in-use") {
         setError("Email is already registered.");
@@ -125,7 +127,10 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
       let creds;
       try {
         creds = await signInWithEmailAndPassword(auth, demoEmail, demoPass);
-      } catch (signInErr) {
+      } catch (signInErr: any) {
+        if (signInErr.code === "auth/operation-not-allowed") {
+          throw signInErr; // Trigger fallback
+        }
         // If demo account doesn't exist yet, register it dynamically!
         creds = await createUserWithEmailAndPassword(auth, demoEmail, demoPass);
       }
@@ -134,7 +139,38 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
       onAuthSuccess(profile);
     } catch (err: any) {
       console.error("Demo login error:", err);
-      setError("Failed to initialize demo credential. Please register a standard email account.");
+      if (err.code === "auth/operation-not-allowed") {
+        console.warn("Email/Password Auth is not enabled in Firebase Console. Falling back to local/offline session...");
+        // Generate a deterministic local profile
+        const localUid = type === "citizen" ? "demo-citizen-uid-123" : "demo-authority-uid-456";
+        const localProfile = {
+          uid: localUid,
+          email: demoEmail,
+          displayName: demoName,
+          role: type,
+          createdAt: new Date().toISOString(),
+          totalReports: 0,
+          resolvedReports: 0,
+          pendingReports: 0,
+          isOfflineDemo: true,
+        };
+        // Let's also try to save this to Firestore if possible, but handle any security/network errors gracefully
+        try {
+          const userRef = doc(db, "users", localUid);
+          const snap = await getDoc(userRef);
+          if (!snap.exists()) {
+            await setDoc(userRef, localProfile);
+          } else {
+            onAuthSuccess(snap.data());
+            return;
+          }
+        } catch (dbErr) {
+          console.warn("Could not sync local demo profile to Firestore, proceeding with local-only state:", dbErr);
+        }
+        onAuthSuccess(localProfile);
+      } else {
+        setError("Failed to initialize demo credential. Please register a standard email account.");
+      }
     } finally {
       setLoading(false);
     }
