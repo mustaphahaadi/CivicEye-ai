@@ -58,7 +58,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
   };
 
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden">
+    <div className="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen font-sans selection:bg-cblue-600 selection:text-white overflow-x-hidden">
       {/* 1. Header Navigation Bar */}
       <nav className="border-b border-slate-200/60 dark:border-slate-900/60 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md sticky top-0 z-40 px-6 py-4 flex justify-between items-center max-w-7xl mx-auto rounded-b-2xl shadow-sm">
         <motion.div 
@@ -67,15 +67,15 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3"
         >
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-blue-500/20">
+          <div className="w-10 h-10 bg-gradient-to-br from-cblue-600 to-cblue-700 rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-cblue-500/20">
             C
           </div>
           <div>
             <div className="flex items-center gap-1.5">
               <span className="font-extrabold text-slate-950 dark:text-white text-lg tracking-tight leading-none">CivicEye</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-cgreen-500 animate-pulse" />
             </div>
-            <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 uppercase tracking-widest font-bold block mt-0.5">Smart Governance</span>
+            <span className="text-[10px] font-mono text-cblue-600 dark:text-cblue-400 uppercase tracking-widest font-bold block mt-0.5">Smart Governance</span>
           </div>
         </motion.div>
         
@@ -87,7 +87,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
         >
           <button
             onClick={onLogin}
-            className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 font-semibold text-sm transition py-2 px-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900/60"
+            className="text-slate-600 dark:text-slate-300 hover:text-cblue-600 dark:hover:text-cblue-400 font-semibold text-sm transition py-2 px-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900/60"
           >
             Portal Login
           </button>
@@ -95,7 +95,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
             whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
             onClick={onGetStarted}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-2.5 px-5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-blue-500/15 hover:shadow-blue-500/25"
+            className="bg-cblue-600 hover:bg-cblue-700 text-white font-bold text-sm py-2.5 px-5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-cblue-500/15 hover:shadow-cblue-500/25"
           >
             <span>Report Issue</span>
             <ArrowRight className="w-4 h-4" />
@@ -106,8 +106,8 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
       {/* 2. Hero Section */}
       <section className="relative px-6 py-12 md:py-20 max-w-7xl mx-auto">
         {/* Subtle, beautiful ambient gradients */}
-        <div className="absolute top-10 right-1/4 w-[500px] h-[500px] bg-blue-500/10 dark:bg-blue-600/5 rounded-full blur-3xl -z-10 pointer-events-none" />
-        <div className="absolute bottom-10 left-1/4 w-[400px] h-[400px] bg-emerald-500/10 dark:bg-emerald-600/5 rounded-full blur-3xl -z-10 pointer-events-none" />
+        <div className="absolute top-10 right-1/4 w-[500px] h-[500px] bg-cblue-500/10 dark:bg-cblue-600/5 rounded-full blur-3xl -z-10 pointer-events-none" />
+        <div className="absolute bottom-10 left-1/4 w-[400px] h-[400px] bg-cgreen-500/10 dark:bg-cgreen-600/5 rounded-full blur-3xl -z-10 pointer-events-none" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <motion.div 
@@ -116,14 +116,14 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="lg:col-span-7 space-y-6 text-left"
           >
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20 text-blue-700 dark:text-blue-300 border border-blue-200/40 dark:border-blue-800/40 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide font-mono shadow-sm">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-spin" style={{ animationDuration: "3s" }} /> 
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-cblue-500/10 to-cgreen-500/10 dark:from-cblue-500/20 dark:to-cgreen-500/20 text-cblue-700 dark:text-cblue-300 border border-cblue-200/40 dark:border-cblue-800/40 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide font-mono shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-corange-500 animate-spin" style={{ animationDuration: "3s" }} /> 
               <span>Multimodal AI Dispatch Engine</span>
             </div>
             
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-950 dark:text-white leading-[1.1] tracking-tight">
               The AI-Powered Eyes <br />
-              Of Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">Smart City</span>
+              Of Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-cblue-600 to-cgreen-600 dark:from-cblue-400 dark:to-cgreen-400">Smart City</span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed">
@@ -135,7 +135,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onGetStarted}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-blue-500/20 hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-3.5 text-base"
+                className="bg-gradient-to-r from-cblue-600 to-cblue-700 hover:from-cblue-700 hover:to-cblue-800 text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-cblue-500/20 hover:shadow-cblue-500/30 transition-all flex items-center justify-center gap-3.5 text-base"
               >
                 <span>Report an Issue Now</span>
                 <ArrowRight className="w-5 h-5" />
@@ -154,15 +154,15 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
             {/* Micro proof badges */}
             <div className="flex flex-wrap items-center gap-6 pt-6 text-slate-400 dark:text-slate-500 text-xs">
               <div className="flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-500" />
+                <Check className="w-4 h-4 text-cgreen-500" />
                 <span>Zero login needed to file</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-500" />
+                <Check className="w-4 h-4 text-cgreen-500" />
                 <span>Instant routing in &lt;15s</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-500" />
+                <Check className="w-4 h-4 text-cgreen-500" />
                 <span>Precise GPS geolocation</span>
               </div>
             </div>
@@ -176,17 +176,17 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
             className="lg:col-span-5 relative"
           >
             {/* Soft decorative blur circles behind the card */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-[32px] blur opacity-10 dark:opacity-20 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-cblue-500 to-cgreen-600 rounded-[32px] blur opacity-10 dark:opacity-20 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
             
             <div className="bg-slate-900 text-white p-5 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-40 h-40 bg-cblue-600/10 rounded-full blur-3xl pointer-events-none" />
               
               {/* Header inside simulated device */}
               <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-corange-600" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-corange-500" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-cgreen-500" />
                 </div>
                 <div className="bg-slate-950 px-3 py-1 rounded-full text-[10px] text-slate-400 font-mono tracking-wider border border-slate-800">
                   CIVIC-AI // MONITOR
@@ -202,25 +202,25 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
                 />
                 
                 {/* Scanner scanline effect */}
-                <div className="absolute left-0 right-0 top-0 h-0.5 bg-gradient-to-r from-blue-500 via-indigo-400 to-blue-500 animate-[bounce_3.5s_infinite] shadow-[0_0_8px_#3b82f6] z-10" />
+                <div className="absolute left-0 right-0 top-0 h-0.5 bg-gradient-to-r from-cblue-500 via-cgreen-400 to-corange-500 animate-[bounce_3.5s_infinite] shadow-[0_0_8px_#0052cc] z-10" />
 
-                <div className="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-mono font-bold px-2 py-0.5 rounded tracking-widest flex items-center gap-1 shadow-lg z-10">
+                <div className="absolute top-3 left-3 bg-corange-600 text-white text-[9px] font-mono font-bold px-2 py-0.5 rounded tracking-widest flex items-center gap-1 shadow-lg z-10">
                   <span className="w-1.5 h-1.5 bg-white rounded-full animate-ping" /> CRITICAL INCIDENT DETECTED
                 </div>
 
                 {/* Target box */}
-                <div className="absolute border-2 border-dashed border-red-500/80 w-32 h-32 rounded-lg flex items-center justify-center pointer-events-none">
-                  <span className="text-[10px] font-mono bg-red-500 text-white px-1.5 py-0.5 rounded absolute -top-4 font-bold">WATER_BURST</span>
+                <div className="absolute border-2 border-dashed border-corange-500/80 w-32 h-32 rounded-lg flex items-center justify-center pointer-events-none">
+                  <span className="text-[10px] font-mono bg-corange-600 text-white px-1.5 py-0.5 rounded absolute -top-4 font-bold">WATER_BURST</span>
                 </div>
 
                 <div className="absolute bottom-3 right-3 bg-slate-950/90 backdrop-blur border border-slate-800 text-white p-3 rounded-xl max-w-[210px] shadow-lg z-10">
                   <div className="flex items-center gap-1.5 mb-1">
-                    <Sparkles className="w-3 h-3 text-amber-400" />
+                    <Sparkles className="w-3 h-3 text-corange-500" />
                     <span className="text-[8px] font-mono text-slate-400 uppercase tracking-wider block">Vision Classification</span>
                   </div>
                   <span className="text-[11px] font-bold text-slate-100 block">Main Water Pipeline Leakage</span>
                   <div className="flex items-center gap-1.5 mt-1.5 pt-1.5 border-t border-slate-800/80">
-                    <span className="text-[9px] font-mono text-emerald-400 font-bold">98.4% Confidence</span>
+                    <span className="text-[9px] font-mono text-cgreen-400 font-bold">98.4% Confidence</span>
                   </div>
                 </div>
               </div>
@@ -229,17 +229,17 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
               <div className="space-y-2.5 text-xs font-mono">
                 <div className="bg-slate-950/90 p-3 rounded-xl border border-slate-800 flex items-center justify-between shadow-sm">
                   <div className="flex items-center gap-2">
-                    <Building className="w-4 h-4 text-blue-400" />
+                    <Building className="w-4 h-4 text-cblue-400" />
                     <span className="text-slate-400">Assigned Department:</span>
                   </div>
                   <span className="font-semibold text-white">Water Authority Dispatch</span>
                 </div>
                 <div className="bg-slate-950/90 p-3 rounded-xl border border-slate-800 flex items-center justify-between shadow-sm">
                   <div className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-amber-400 animate-pulse" />
+                    <Zap className="w-4 h-4 text-corange-500 animate-pulse" />
                     <span className="text-slate-400">Risk Severity Rank:</span>
                   </div>
-                  <span className="font-semibold text-red-400 uppercase tracking-tight">Level 5 (Severe)</span>
+                  <span className="font-semibold text-corange-500 uppercase tracking-tight">Level 5 (Severe)</span>
                 </div>
               </div>
             </div>
@@ -254,10 +254,10 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
             whileHover={{ y: -3 }}
             className="space-y-2 text-center p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
           >
-            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 mb-1">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-cblue-50 dark:bg-cblue-950/40 text-cblue-600 dark:text-cblue-400 mb-1">
               <CheckCircle className="w-5 h-5" />
             </div>
-            <span className="text-3xl sm:text-4xl font-extrabold text-blue-600 dark:text-blue-400 block tracking-tight">12,480+</span>
+            <span className="text-3xl sm:text-4xl font-extrabold text-cblue-600 dark:text-cblue-400 block tracking-tight">12,480+</span>
             <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono">Issues Resolved</span>
           </motion.div>
 
@@ -265,10 +265,10 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
             whileHover={{ y: -3 }}
             className="space-y-2 text-center p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
           >
-            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 mb-1">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-cgreen-50 dark:bg-cgreen-800/10 text-cgreen-600 dark:text-cgreen-400 mb-1">
               <Sparkles className="w-5 h-5" />
             </div>
-            <span className="text-3xl sm:text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 block tracking-tight">98.7%</span>
+            <span className="text-3xl sm:text-4xl font-extrabold text-cgreen-600 dark:text-cgreen-400 block tracking-tight">98.7%</span>
             <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono">AI Accuracy rate</span>
           </motion.div>
 
@@ -276,10 +276,10 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
             whileHover={{ y: -3 }}
             className="space-y-2 text-center p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
           >
-            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 mb-1">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-corange-100/50 dark:bg-corange-900/10 text-corange-500 mb-1">
               <Clock className="w-5 h-5" />
             </div>
-            <span className="text-3xl sm:text-4xl font-extrabold text-orange-600 dark:text-orange-400 block tracking-tight">&lt; 15s</span>
+            <span className="text-3xl sm:text-4xl font-extrabold text-corange-600 block tracking-tight">&lt; 15s</span>
             <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono">Response processing</span>
           </motion.div>
 
@@ -321,13 +321,13 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
             className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-6 rounded-3xl shadow-sm text-center space-y-5 relative group"
           >
-            <div className="absolute top-4 right-4 text-xs font-mono font-bold text-blue-500/30 dark:text-blue-400/20 group-hover:text-blue-500/60 transition-colors">
+            <div className="absolute top-4 right-4 text-xs font-mono font-bold text-cblue-500/30 dark:text-cblue-400/20 group-hover:text-cblue-500/60 transition-colors">
               PHASE 01
             </div>
-            <div className="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg mx-auto shadow-lg shadow-blue-500/20">
+            <div className="w-12 h-12 bg-cblue-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg mx-auto shadow-lg shadow-cblue-500/20">
               1
             </div>
-            <div className="p-4.5 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-2xl w-max mx-auto border border-blue-100/50 dark:border-blue-900/30">
+            <div className="p-4.5 bg-cblue-50 dark:bg-cblue-950/40 text-cblue-600 dark:text-cblue-400 rounded-2xl w-max mx-auto border border-cblue-100/50 dark:border-cblue-900/30">
               <Camera className="w-7 h-7" />
             </div>
             <h4 className="font-extrabold text-slate-900 dark:text-white text-lg">Snap &amp; Submit</h4>
@@ -342,13 +342,13 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
             className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-6 rounded-3xl shadow-sm text-center space-y-5 relative group"
           >
-            <div className="absolute top-4 right-4 text-xs font-mono font-bold text-emerald-500/30 dark:text-emerald-400/20 group-hover:text-emerald-500/60 transition-colors">
+            <div className="absolute top-4 right-4 text-xs font-mono font-bold text-cgreen-500/30 dark:text-cgreen-400/20 group-hover:text-cgreen-500/60 transition-colors">
               PHASE 02
             </div>
-            <div className="w-12 h-12 bg-emerald-500 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg mx-auto shadow-lg shadow-emerald-500/20">
+            <div className="w-12 h-12 bg-cgreen-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg mx-auto shadow-lg shadow-cgreen-500/20">
               2
             </div>
-            <div className="p-4.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-2xl w-max mx-auto border border-emerald-100/50 dark:border-emerald-900/30">
+            <div className="p-4.5 bg-cgreen-50 dark:bg-cgreen-950/40 text-cgreen-600 dark:text-cgreen-400 rounded-2xl w-max mx-auto border border-cgreen-100/50 dark:border-cgreen-900/30">
               <Zap className="w-7 h-7" />
             </div>
             <h4 className="font-extrabold text-slate-900 dark:text-white text-lg">AI Vision Analysis</h4>
@@ -363,13 +363,13 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
             className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-6 rounded-3xl shadow-sm text-center space-y-5 relative group"
           >
-            <div className="absolute top-4 right-4 text-xs font-mono font-bold text-indigo-500/30 dark:text-indigo-400/20 group-hover:text-indigo-500/60 transition-colors">
+            <div className="absolute top-4 right-4 text-xs font-mono font-bold text-corange-500/30 dark:text-corange-400/20 group-hover:text-corange-500/60 transition-colors">
               PHASE 03
             </div>
-            <div className="w-12 h-12 bg-indigo-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg mx-auto shadow-lg shadow-indigo-500/20">
+            <div className="w-12 h-12 bg-corange-500 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg mx-auto shadow-lg shadow-corange-500/20">
               3
             </div>
-            <div className="p-4.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-2xl w-max mx-auto border border-indigo-100/50 dark:border-indigo-900/30">
+            <div className="p-4.5 bg-corange-50 dark:bg-corange-950/40 text-corange-600 dark:text-corange-400 rounded-2xl w-max mx-auto border border-corange-100/50 dark:border-corange-900/30">
               <CheckCircle className="w-7 h-7" />
             </div>
             <h4 className="font-extrabold text-slate-900 dark:text-white text-lg">Resolved &amp; Verified</h4>
@@ -403,7 +403,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
               whileHover={{ scale: 1.01, y: -2 }}
               className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 flex gap-4 items-start shadow-sm hover:shadow-md transition-all duration-200"
             >
-              <div className="p-3 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl shrink-0">
+              <div className="p-3 bg-cblue-500/10 text-cblue-600 dark:text-cblue-400 rounded-xl shrink-0">
                 <Shield className="w-5.5 h-5.5" />
               </div>
               <div className="space-y-1.5">
@@ -420,7 +420,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
               whileHover={{ scale: 1.01, y: -2 }}
               className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 flex gap-4 items-start shadow-sm hover:shadow-md transition-all duration-200"
             >
-              <div className="p-3 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl shrink-0">
+              <div className="p-3 bg-cgreen-500/10 text-cgreen-600 dark:text-cgreen-400 rounded-xl shrink-0">
                 <MapPin className="w-5.5 h-5.5" />
               </div>
               <div className="space-y-1.5">
@@ -437,7 +437,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
               whileHover={{ scale: 1.01, y: -2 }}
               className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 flex gap-4 items-start shadow-sm hover:shadow-md transition-all duration-200"
             >
-              <div className="p-3 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-xl shrink-0">
+              <div className="p-3 bg-cblue-500/10 text-cblue-600 dark:text-cblue-400 rounded-xl shrink-0">
                 <Building className="w-5.5 h-5.5" />
               </div>
               <div className="space-y-1.5">
@@ -454,7 +454,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
               whileHover={{ scale: 1.01, y: -2 }}
               className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 flex gap-4 items-start shadow-sm hover:shadow-md transition-all duration-200"
             >
-              <div className="p-3 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-xl shrink-0">
+              <div className="p-3 bg-corange-500/10 text-corange-500 dark:text-corange-400 rounded-xl shrink-0">
                 <TrendingUp className="w-5.5 h-5.5" />
               </div>
               <div className="space-y-1.5">
@@ -471,7 +471,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
               whileHover={{ scale: 1.01, y: -2 }}
               className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 flex gap-4 items-start shadow-sm hover:shadow-md transition-all duration-200"
             >
-              <div className="p-3 bg-pink-500/10 text-pink-600 dark:text-pink-400 rounded-xl shrink-0">
+              <div className="p-3 bg-corange-500/10 text-corange-650 dark:text-corange-400 rounded-xl shrink-0">
                 <MessageSquare className="w-5.5 h-5.5" />
               </div>
               <div className="space-y-1.5">
@@ -488,7 +488,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
               whileHover={{ scale: 1.01, y: -2 }}
               className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 flex gap-4 items-start shadow-sm hover:shadow-md transition-all duration-200"
             >
-              <div className="p-3 bg-orange-500/10 text-orange-600 dark:text-orange-400 rounded-xl shrink-0">
+              <div className="p-3 bg-corange-500/10 text-corange-500 dark:text-corange-400 rounded-xl shrink-0">
                 <Smartphone className="w-5.5 h-5.5" />
               </div>
               <div className="space-y-1.5">
@@ -503,17 +503,17 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
       </section>
 
       {/* 6. CTA Footer */}
-      <section className="bg-gradient-to-r from-blue-700 via-blue-800 to-indigo-800 text-white py-20 px-6 text-center relative overflow-hidden">
+      <section className="bg-gradient-to-r from-cblue-700 via-cblue-800 to-cblue-900 text-white py-20 px-6 text-center relative overflow-hidden">
         {/* Modern decorative background grids */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cblue-500/15 rounded-full blur-3xl pointer-events-none" />
         
         <div className="max-w-3xl mx-auto space-y-6 relative z-10">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
             Ready to Build a Safer, <br />
             Smarter Community Together?
           </h2>
-          <p className="text-blue-100 text-sm sm:text-base leading-relaxed max-w-xl mx-auto opacity-90">
+          <p className="text-cblue-100 text-sm sm:text-base leading-relaxed max-w-xl mx-auto opacity-90">
             Submit your first report in seconds without creating an account, or log in to track updates in real-time.
           </p>
           <div className="pt-6">
@@ -521,7 +521,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               onClick={onGetStarted}
-              className="bg-white hover:bg-slate-50 text-blue-700 font-extrabold px-10 py-4 rounded-2xl shadow-2xl transition-all flex items-center justify-center gap-2.5 mx-auto text-base"
+              className="bg-white hover:bg-slate-50 text-cblue-700 font-extrabold px-10 py-4 rounded-2xl shadow-2xl transition-all flex items-center justify-center gap-2.5 mx-auto text-base"
             >
               <span>Get Started Now</span>
               <ArrowRight className="w-5 h-5" />
@@ -534,7 +534,7 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
       <footer className="bg-slate-950 text-slate-400 text-xs py-12 px-6 border-t border-slate-900">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-extrabold text-base shadow-md">
+            <div className="w-8 h-8 bg-cblue-600 rounded-lg flex items-center justify-center text-white font-extrabold text-base shadow-md">
               C
             </div>
             <div>

@@ -4,6 +4,33 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-cblue-50: #eff6ff;
+  --color-cblue-100: #e0ebff;
+  --color-cblue-200: #b8d2ff;
+  --color-cblue-300: #8ab6ff;
+  --color-cblue-400: #4d90ff;
+  --color-cblue-500: #2563eb;
+  --color-cblue-600: #0052cc; /* C-blue: Primary Civic Blue */
+  --color-cblue-700: #0747a6;
+  --color-cblue-800: #003399;
+  --color-cblue-900: #091e42;
+  --color-cblue-950: #050f24;
+
+  --color-cgreen-50: #f0fdf4;
+  --color-cgreen-100: #dcfce7;
+  --color-cgreen-200: #bbf7d0;
+  --color-cgreen-500: #10b981;
+  --color-cgreen-600: #00875a; /* Primary Green */
+  --color-cgreen-700: #006644;
+  --color-cgreen-800: #064e3b;
+
+  --color-corange-50: #fff7ed;
+  --color-corange-100: #ffedd5;
+  --color-corange-200: #fed7aa;
+  --color-corange-500: #ff8b00; /* Secondary Orange */
+  --color-corange-600: #de350b;
+  --color-corange-700: #9a3412;
 }
 
 /* Custom scrollbars and styling tweaks */

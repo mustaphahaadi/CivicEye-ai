@@ -228,10 +228,10 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "Pending": return "bg-amber-500/10 text-amber-500 border border-amber-500/20";
-      case "Under Review": return "bg-blue-500/10 text-blue-500 border border-blue-500/20";
+      case "Pending": return "bg-corange-500/10 text-corange-500 border border-corange-500/20";
+      case "Under Review": return "bg-cblue-500/10 text-cblue-500 border border-cblue-500/20";
       case "Assigned": return "bg-purple-500/10 text-purple-500 border border-purple-500/20";
-      case "Resolved": return "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+      case "Resolved": return "bg-cgreen-500/10 text-cgreen-500 border border-cgreen-500/20";
       case "Closed": return "bg-slate-500/10 text-slate-400 border border-slate-500/20";
       default: return "bg-slate-500/10 text-slate-400 border border-slate-500/20";
     }
@@ -239,10 +239,10 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
 
   const getPriorityBadge = (priority: string) => {
     switch (priority) {
-      case "Critical": return "bg-red-500/10 text-red-500 border border-red-500/20";
-      case "High": return "bg-orange-500/10 text-orange-500 border border-orange-500/20";
-      case "Medium": return "bg-amber-500/10 text-amber-500 border border-amber-500/20";
-      case "Low": return "bg-blue-500/10 text-blue-500 border border-blue-500/20";
+      case "Critical": return "bg-corange-600/10 text-corange-600 border border-corange-600/20";
+      case "High": return "bg-corange-500/10 text-corange-500 border border-corange-500/20";
+      case "Medium": return "bg-cblue-500/10 text-cblue-500 border border-cblue-500/20";
+      case "Low": return "bg-cblue-500/10 text-cblue-500 border border-cblue-500/20";
       default: return "bg-slate-500/10 text-slate-500 border border-slate-500/20";
     }
   };
@@ -292,7 +292,7 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
                       onClick={() => handleStatusChange(st)}
                       className={`text-xs px-3.5 py-1.5 font-semibold rounded-lg transition cursor-pointer ${
                         selectedReport.status === st
-                          ? "bg-blue-600 text-white shadow-sm"
+                          ? "bg-cblue-600 text-white shadow-sm"
                           : "bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-750"
                       }`}
                     >
@@ -316,7 +316,7 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
               </div>
 
               {/* AI assessment insights card */}
-              <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-2xl text-white shadow-lg relative overflow-hidden">
+              <div className="bg-gradient-to-br from-cblue-600 to-cblue-800 p-6 rounded-2xl text-white shadow-lg relative overflow-hidden">
                 {/* Abstract AI background patterns */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
                 <div className="relative">
@@ -325,7 +325,7 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
                     <span className="text-[10px] font-bold opacity-60 uppercase">Gemini 2.5 Flash</span>
                   </div>
                   <p className="text-lg font-bold mb-1">{selectedReport.category} Detected</p>
-                  <p className="text-xs text-blue-100 mb-6 font-mono">Confidential telemetry analysis & routing protocol.</p>
+                  <p className="text-xs text-cblue-100 mb-6 font-mono">Confidential telemetry analysis & routing protocol.</p>
                   
                   <div className="space-y-4">
                     <div className="flex justify-between border-b border-white/10 pb-2">
@@ -366,7 +366,7 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
             {/* Comments column side-panel */}
             <div className="lg:col-span-5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 p-4 space-y-4">
               <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                <MessageSquare className="w-4 h-4 text-blue-500" /> Dispatcher Notes &amp; Updates ({comments.length})
+                <MessageSquare className="w-4 h-4 text-cblue-500" /> Dispatcher Notes &amp; Updates ({comments.length})
               </h4>
 
               <div className="space-y-3 max-h-80 overflow-y-auto pr-1.5">
@@ -386,7 +386,7 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
                             <User className="w-3 h-3 text-slate-400" /> {comment.userName}
                           </span>
                           <span className={`text-[8px] font-mono font-bold uppercase tracking-widest px-1.5 py-0.2 rounded-full ${
-                            comment.userRole === "authority" ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" : "bg-blue-500/10 text-blue-500 border border-blue-500/20"
+                            comment.userRole === "authority" ? "bg-cgreen-500/10 text-cgreen-600 border border-cgreen-500/20" : "bg-cblue-500/10 text-cblue-600 border border-cblue-500/20"
                           }`}>
                             {comment.userRole}
                           </span>
@@ -408,12 +408,12 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
                   onChange={(e) => setCommentText(e.target.value)}
                   disabled={submittingComment}
                   placeholder="Enter dispatcher notes or citizen notes..."
-                  className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-xl px-3 py-2 text-xs transition placeholder-slate-400"
+                  className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-cblue-500 focus:outline-none rounded-xl px-3 py-2 text-xs transition placeholder-slate-400"
                 />
                 <button
                   type="submit"
                   disabled={!commentText.trim() || submittingComment}
-                  className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white p-2 rounded-xl transition flex items-center justify-center shrink-0 cursor-pointer"
+                  className="bg-cblue-600 hover:bg-cblue-700 disabled:opacity-50 text-white p-2 rounded-xl transition flex items-center justify-center shrink-0 cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -444,7 +444,7 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search by ID, keyword, description, or department..."
-                  className="w-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-lg pl-9 pr-4 py-2.5 text-xs transition placeholder-slate-400"
+                  className="w-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-cblue-500 focus:outline-none rounded-lg pl-9 pr-4 py-2.5 text-xs transition placeholder-slate-400"
                 />
               </div>
 
@@ -554,22 +554,22 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center gap-1.5">
                             <div className={`w-2 h-2 rounded-full ${
-                              report.priority === "Critical" ? "bg-red-500" :
-                              report.priority === "High" ? "bg-orange-500" :
-                              report.priority === "Medium" ? "bg-yellow-500" : "bg-blue-500"
+                              report.priority === "Critical" ? "bg-corange-600" :
+                              report.priority === "High" ? "bg-corange-500" :
+                              report.priority === "Medium" ? "bg-cblue-500" : "bg-slate-400"
                             }`}></div>
                             <span className={`text-xs font-bold ${
-                              report.priority === "Critical" ? "text-red-600 dark:text-red-400" :
-                              report.priority === "High" ? "text-orange-600 dark:text-orange-400" :
-                              report.priority === "Medium" ? "text-yellow-600 dark:text-yellow-400" : "text-blue-600 dark:text-blue-400"
+                              report.priority === "Critical" ? "text-corange-600" :
+                              report.priority === "High" ? "text-corange-500" :
+                              report.priority === "Medium" ? "text-cblue-500" : "text-slate-500"
                             }`}>{report.priority}</span>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className={`px-3 py-1 text-xs font-bold rounded-full border ${
-                            report.status === "Resolved" ? "bg-green-50 text-green-700 border-green-250 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/40" :
-                            report.status === "Pending" ? "bg-amber-50 text-amber-700 border-amber-250 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/40" :
-                            report.status === "Under Review" ? "bg-blue-50 text-blue-700 border-blue-250 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/40" :
+                            report.status === "Resolved" ? "bg-cgreen-50 text-cgreen-750 border-cgreen-200 dark:bg-cgreen-950/20 dark:text-cgreen-400 dark:border-cgreen-900/40" :
+                            report.status === "Pending" ? "bg-corange-50 text-corange-750 border-corange-200 dark:bg-corange-950/20 dark:text-corange-400 dark:border-corange-900/40" :
+                            report.status === "Under Review" ? "bg-cblue-50 text-cblue-750 border-cblue-200 dark:bg-cblue-950/20 dark:text-cblue-400 dark:border-cblue-900/40" :
                             report.status === "Assigned" ? "bg-purple-50 text-purple-700 border-purple-250 dark:bg-purple-950/20 dark:text-purple-400 dark:border-purple-900/40" :
                             "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                           }`}>
@@ -585,7 +585,7 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
                               e.stopPropagation();
                               setSelectedReport(report);
                             }}
-                            className="p-1.5 text-blue-500 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-cblue-500 hover:text-cblue-750 hover:bg-cblue-50 dark:hover:bg-cblue-950/40 rounded-lg transition cursor-pointer"
                             title="Inspect ticket"
                           >
                             <Eye className="w-4 h-4" />

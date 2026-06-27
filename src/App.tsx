@@ -186,7 +186,7 @@ export default function App() {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center font-sans">
         <div className="space-y-4 text-center">
-          <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-500/20 mx-auto animate-bounce">
+          <div className="w-12 h-12 bg-cblue-600 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-cblue-500/20 mx-auto animate-bounce">
             C
           </div>
           <p className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest animate-pulse">
@@ -218,10 +218,10 @@ export default function App() {
       {/* 1. Mobile Top Bar Header */}
       <header className="md:hidden bg-[#0F172A] border-b border-slate-800 px-4 py-3 flex justify-between items-center shrink-0 w-full z-30">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black text-sm">
+          <div className="w-7 h-7 bg-cblue-600 rounded-lg flex items-center justify-center text-white font-black text-sm">
             C
           </div>
-          <span className="text-lg font-bold tracking-tight text-white">Civic<span className="text-blue-500">Eye</span> AI</span>
+          <span className="text-lg font-bold tracking-tight text-white">Civic<span className="text-cgreen-500">Eye</span> AI</span>
         </div>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -240,10 +240,10 @@ export default function App() {
         {/* Brand Header */}
         <div className="p-6 flex items-center justify-between border-b border-slate-800 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white shrink-0">
+            <div className="w-8 h-8 bg-cblue-600 rounded-lg flex items-center justify-center font-bold text-white shrink-0 shadow-md shadow-cblue-600/25">
               C
             </div>
-            <span className="text-xl font-bold tracking-tight text-white">Civic<span className="text-blue-500">Eye</span> AI</span>
+            <span className="text-xl font-bold tracking-tight text-white">Civic<span className="text-cgreen-500">Eye</span> <span className="text-xs bg-corange-500/20 text-corange-500 border border-corange-500/35 px-1.5 py-0.5 rounded ml-1 font-mono uppercase tracking-widest font-black">AI</span></span>
           </div>
           <button
             onClick={() => setSidebarOpen(false)}
@@ -254,7 +254,7 @@ export default function App() {
         </div>
 
         {/* Nav links scroller */}
-        <nav className="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 py-6 px-4 space-y-1.5 overflow-y-auto">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isSelected = activePage === link.id;
@@ -265,13 +265,13 @@ export default function App() {
                   setActivePage(link.id);
                   setSidebarOpen(false);
                 }}
-                className={`w-full px-3 py-2 rounded-md text-left text-sm font-medium flex items-center gap-3 transition-colors cursor-pointer ${
+                className={`w-full px-3.5 py-2.5 rounded-xl text-left text-sm font-medium flex items-center gap-3 transition-all cursor-pointer ${
                   isSelected
-                    ? "bg-blue-600/10 text-blue-400 font-semibold"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-cblue-600/15 text-cblue-400 font-bold border border-cblue-500/25"
+                    : "text-slate-400 hover:text-white hover:bg-slate-800/40 border border-transparent"
                 }`}
               >
-                <Icon className={`w-5 h-5 shrink-0 ${isSelected ? "text-blue-400" : "text-slate-400"}`} />
+                <Icon className={`w-5 h-5 shrink-0 transition-transform duration-200 ${isSelected ? "text-cblue-400 scale-110" : "text-slate-400"}`} />
                 <span>{link.label}</span>
               </button>
             );

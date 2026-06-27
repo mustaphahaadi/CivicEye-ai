@@ -191,13 +191,13 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "Pending":
-        return "bg-amber-500/10 text-amber-500 border border-amber-500/20";
+        return "bg-corange-500/10 text-corange-500 border border-corange-500/20";
       case "Under Review":
-        return "bg-blue-500/10 text-blue-500 border border-blue-500/20";
+        return "bg-cblue-500/10 text-cblue-500 border border-cblue-500/20";
       case "Assigned":
         return "bg-purple-500/10 text-purple-500 border border-purple-500/20";
       case "Resolved":
-        return "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20";
+        return "bg-cgreen-500/10 text-cgreen-600 border border-cgreen-500/20";
       case "Closed":
         return "bg-slate-500/10 text-slate-500 border border-slate-500/20";
       default:
@@ -208,13 +208,13 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
   const getPriorityBadge = (priority: string) => {
     switch (priority) {
       case "Critical":
-        return "bg-red-500/10 text-red-500 border border-red-500/20";
+        return "bg-corange-600/10 text-corange-600 border border-corange-600/20";
       case "High":
-        return "bg-orange-500/10 text-orange-500 border border-orange-500/20";
+        return "bg-corange-500/10 text-corange-500 border border-corange-500/20";
       case "Medium":
-        return "bg-amber-500/10 text-amber-500 border border-amber-500/20";
+        return "bg-cblue-500/10 text-cblue-500 border border-cblue-500/20";
       case "Low":
-        return "bg-blue-500/10 text-blue-500 border border-blue-500/20";
+        return "bg-cblue-500/10 text-cblue-500 border border-cblue-500/20";
       default:
         return "bg-slate-500/10 text-slate-500 border border-slate-500/20";
     }
@@ -275,7 +275,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
               </div>
 
               {/* AI Details Frame */}
-              <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-2xl text-white shadow-lg relative overflow-hidden">
+              <div className="bg-gradient-to-br from-cblue-600 to-cblue-800 p-6 rounded-2xl text-white shadow-lg relative overflow-hidden">
                 {/* Abstract AI background patterns */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
                 <div className="relative">
@@ -284,7 +284,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
                     <span className="text-[10px] font-bold opacity-60 uppercase">Gemini 2.5 Flash</span>
                   </div>
                   <p className="text-lg font-bold mb-1">{selectedReport.category} Detected</p>
-                  <p className="text-xs text-blue-100 mb-6 font-mono">Confidential telemetry analysis & routing protocol.</p>
+                  <p className="text-xs text-cblue-100 mb-6 font-mono">Confidential telemetry analysis & routing protocol.</p>
                   
                   <div className="space-y-4">
                     <div className="flex justify-between border-b border-white/10 pb-2">
@@ -325,7 +325,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
             {/* Comments side-panel */}
             <div className="lg:col-span-5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 p-4 space-y-4">
               <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                <MessageSquare className="w-4 h-4 text-blue-500" /> Updates &amp; Comments ({comments.length})
+                <MessageSquare className="w-4 h-4 text-cblue-500" /> Updates &amp; Comments ({comments.length})
               </h4>
 
               {/* Comments Scroller */}
@@ -346,7 +346,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
                             <User className="w-3 h-3 text-slate-400" /> {comment.userName}
                           </span>
                           <span className={`text-[8px] font-mono font-bold uppercase tracking-widest px-1.5 py-0.2 rounded-full ${
-                            comment.userRole === "authority" ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" : "bg-blue-500/10 text-blue-500 border border-blue-500/20"
+                            comment.userRole === "authority" ? "bg-cgreen-500/10 text-cgreen-600 border border-cgreen-500/20" : "bg-cblue-500/10 text-cblue-600 border border-cblue-500/20"
                           }`}>
                             {comment.userRole}
                           </span>
@@ -368,12 +368,12 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
                   onChange={(e) => setCommentText(e.target.value)}
                   disabled={submittingComment}
                   placeholder="Type updates or feedback..."
-                  className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-xl px-3 py-2 text-xs transition placeholder-slate-400"
+                  className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-cblue-500 focus:outline-none rounded-xl px-3 py-2 text-xs transition placeholder-slate-400"
                 />
                 <button
                   type="submit"
                   disabled={!commentText.trim() || submittingComment}
-                  className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white p-2 rounded-xl transition flex items-center justify-center shrink-0 cursor-pointer"
+                  className="bg-cblue-600 hover:bg-cblue-700 disabled:opacity-50 text-white p-2 rounded-xl transition flex items-center justify-center shrink-0 cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -395,7 +395,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
             </div>
             <button
               onClick={onNewReportClick}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-2 px-4 rounded-lg shadow-sm hover:bg-blue-700 transition flex items-center gap-1.5 shrink-0 cursor-pointer"
+              className="bg-cblue-600 hover:bg-cblue-700 text-white font-bold text-sm py-2 px-4 rounded-lg shadow-sm transition flex items-center gap-1.5 shrink-0 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Report New Issue</span>
@@ -410,22 +410,22 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
             </div>
             <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition hover:shadow-md">
               <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Pending Intake</p>
-              <p className="text-3xl font-extrabold text-amber-600 dark:text-amber-500">{stats.pending}</p>
+              <p className="text-3xl font-extrabold text-corange-500">{stats.pending}</p>
             </div>
             <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition hover:shadow-md">
               <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">In Investigation</p>
-              <p className="text-3xl font-extrabold text-blue-600 dark:text-blue-500">{stats.inReview}</p>
+              <p className="text-3xl font-extrabold text-cblue-500">{stats.inReview}</p>
             </div>
             <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition hover:shadow-md">
               <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Incidents Resolved</p>
-              <p className="text-3xl font-extrabold text-green-600 dark:text-emerald-500">{stats.resolved}</p>
+              <p className="text-3xl font-extrabold text-cgreen-600">{stats.resolved}</p>
             </div>
           </div>
 
           {/* Notifications Alerts ticker */}
           {notifications.filter((n) => !n.read).length > 0 && (
-            <div className="bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/40 rounded-xl p-4 space-y-2">
-              <h4 className="text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest flex items-center gap-1">
+            <div className="bg-cblue-50/50 dark:bg-cblue-950/20 border border-cblue-100 dark:border-cblue-900/40 rounded-xl p-4 space-y-2">
+              <h4 className="text-[10px] font-mono font-bold text-cblue-600 dark:text-cblue-400 uppercase tracking-widest flex items-center gap-1">
                 🔔 Unread Telemetry Updates ({notifications.filter((n) => !n.read).length})
               </h4>
               <div className="space-y-1.5">
@@ -438,7 +438,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
                     <div className="flex gap-2 shrink-0">
                       <button
                         onClick={() => handleMarkNotificationRead(notif.id)}
-                        className="text-[10px] font-semibold text-blue-500 hover:underline cursor-pointer"
+                        className="text-[10px] font-semibold text-cblue-500 hover:underline cursor-pointer"
                       >
                         Dismiss
                       </button>
@@ -452,7 +452,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
           {/* Citizen's Reports List vs Empty state */}
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-              <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
+              <div className="w-1.5 h-6 bg-cblue-600 rounded-full"></div>
               My Infrastructure Reports
             </h2>
 
@@ -508,22 +508,22 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center gap-1.5">
                               <div className={`w-2 h-2 rounded-full ${
-                                report.priority === "Critical" ? "bg-red-500" :
-                                report.priority === "High" ? "bg-orange-500" :
-                                report.priority === "Medium" ? "bg-yellow-500" : "bg-blue-500"
+                                report.priority === "Critical" ? "bg-corange-600" :
+                                report.priority === "High" ? "bg-corange-500" :
+                                report.priority === "Medium" ? "bg-cblue-500" : "bg-slate-400"
                               }`}></div>
                               <span className={`text-xs font-bold ${
-                                report.priority === "Critical" ? "text-red-600 dark:text-red-400" :
-                                report.priority === "High" ? "text-orange-600 dark:text-orange-400" :
-                                report.priority === "Medium" ? "text-yellow-600 dark:text-yellow-400" : "text-blue-600 dark:text-blue-400"
+                                report.priority === "Critical" ? "text-corange-600" :
+                                report.priority === "High" ? "text-corange-500" :
+                                report.priority === "Medium" ? "text-cblue-500" : "text-slate-500"
                               }`}>{report.priority}</span>
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <span className={`px-3 py-1 text-xs font-bold rounded-full border ${
-                              report.status === "Resolved" ? "bg-green-50 text-green-700 border-green-250 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/40" :
-                              report.status === "Pending" ? "bg-amber-50 text-amber-700 border-amber-250 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/40" :
-                              report.status === "Under Review" ? "bg-blue-50 text-blue-700 border-blue-250 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/40" :
+                              report.status === "Resolved" ? "bg-cgreen-50 text-cgreen-750 border-cgreen-200 dark:bg-cgreen-950/20 dark:text-cgreen-400 dark:border-cgreen-900/40" :
+                              report.status === "Pending" ? "bg-corange-50 text-corange-750 border-corange-200 dark:bg-corange-950/20 dark:text-corange-400 dark:border-corange-900/40" :
+                              report.status === "Under Review" ? "bg-cblue-50 text-cblue-750 border-cblue-200 dark:bg-cblue-950/20 dark:text-cblue-400 dark:border-cblue-900/40" :
                               report.status === "Assigned" ? "bg-purple-50 text-purple-700 border-purple-250 dark:bg-purple-950/20 dark:text-purple-400 dark:border-purple-900/40" :
                               "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                             }`}>
