@@ -1,0 +1,6 @@
+{
+  "name": "CivicEye",
+  "description": "Smart City platform that enables citizens to report community issues with AI-powered automatic classification, priority assessment, and department routing.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
