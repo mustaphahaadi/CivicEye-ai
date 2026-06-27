@@ -217,12 +217,12 @@ export default function ReportIssuePage({
           createdAt: now,
         });
 
-        // 3. Update User stats counters
+        // 3. Update User stats counters with merge: true to avoid crashes if document doesn't exist yet
         const userRef = doc(db, "users", profile.uid);
-        await updateDoc(userRef, {
+        await setDoc(userRef, {
           totalReports: increment(1),
           pendingReports: increment(1),
-        });
+        }, { merge: true });
       } catch (dbErr: any) {
         console.warn("Firestore writing is blocked, falling back to local database persistence:", dbErr);
         

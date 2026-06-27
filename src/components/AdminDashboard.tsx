@@ -71,8 +71,7 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
 
     const q = query(
       collection(db, "comments"),
-      where("reportId", "==", selectedReport.id),
-      orderBy("createdAt", "asc")
+      where("reportId", "==", selectedReport.id)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -80,7 +79,8 @@ export default function AdminDashboard({ profile, reports, onReportsUpdated }: A
       snapshot.forEach((docSnap) => {
         items.push({ id: docSnap.id, ...docSnap.data() } as Comment);
       });
-      setComments(items);
+      const sorted = items.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+      setComments(sorted);
     }, (error) => {
       console.warn("Real-time comment listener failed, falling back to standard fetch.", error);
       // Fallback without orderBy

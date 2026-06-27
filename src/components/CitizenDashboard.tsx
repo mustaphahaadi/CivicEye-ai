@@ -81,8 +81,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
 
     const q = query(
       collection(db, "comments"),
-      where("reportId", "==", selectedReport.id),
-      orderBy("createdAt", "asc")
+      where("reportId", "==", selectedReport.id)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -90,7 +89,8 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
       snapshot.forEach((docSnap) => {
         items.push({ id: docSnap.id, ...docSnap.data() } as Comment);
       });
-      setComments(items);
+      const sorted = items.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+      setComments(sorted);
     }, (error) => {
       console.warn("Real-time comment listener failed, falling back to standard fetch.", error);
       // Fallback without orderBy
@@ -114,8 +114,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
   React.useEffect(() => {
     const q = query(
       collection(db, "notifications"),
-      where("userId", "==", profile.uid),
-      orderBy("createdAt", "desc")
+      where("userId", "==", profile.uid)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -123,7 +122,8 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
       snapshot.forEach((docSnap) => {
         items.push({ id: docSnap.id, ...docSnap.data() } as Notification);
       });
-      setNotifications(items);
+      const sorted = items.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+      setNotifications(sorted);
     }, (error) => {
       console.warn("Real-time notifications index missing, falling back to standard fetch.", error);
       const fbQuery = query(collection(db, "notifications"), where("userId", "==", profile.uid));

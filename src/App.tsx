@@ -112,18 +112,19 @@ export default function App() {
 
   // Subscribe to Reports collection in Firestore in real-time
   React.useEffect(() => {
-    const q = query(collection(db, "reports"), orderBy("createdAt", "desc"));
+    // Querying without orderBy prevents missing index exceptions and ensures 100% real-time stability
+    const q = query(collection(db, "reports"));
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const items: Report[] = [];
       snapshot.forEach((docSnap) => {
         items.push(docSnap.data() as Report);
       });
-      setReports(items);
-      saveLocalReports(items);
+      const sorted = items.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+      setReports(sorted);
+      saveLocalReports(sorted);
     }, (error) => {
       console.warn("Real-time reports listener failed, falling back to standard fetch.", error);
-      // Fallback without orderBy
       getDocs(collection(db, "reports")).then((snapshot) => {
         const items: Report[] = [];
         snapshot.forEach((docSnap) => {
