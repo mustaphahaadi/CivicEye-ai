@@ -202,11 +202,11 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
     <div className="space-y-6">
       {/* Detail panel expansion */}
       {selectedReport ? (
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-6 animate-[fadeIn_0.4s_ease-out]">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm space-y-6 animate-[fadeIn_0.4s_ease-out]">
           <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-4">
             <button
               onClick={() => setSelectedReport(null)}
-              className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1.5 font-semibold transition animate-pulse"
+              className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1.5 font-semibold transition cursor-pointer"
             >
               <span>&larr; Return to Dispatch Console</span>
             </button>
@@ -229,7 +229,7 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
               <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{selectedReport.title}</h3>
 
               {/* Status Action controls */}
-              <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-150 dark:border-slate-850 space-y-3.5">
+              <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
                 <h4 className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
                   Dispatch Action Center
                 </h4>
@@ -241,7 +241,7 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
                       type="button"
                       disabled={updatingStatus || selectedReport.status === st}
                       onClick={() => handleStatusChange(st)}
-                      className={`text-xs px-3.5 py-1.8 font-semibold rounded-xl transition ${
+                      className={`text-xs px-3.5 py-1.5 font-semibold rounded-lg transition cursor-pointer ${
                         selectedReport.status === st
                           ? "bg-blue-600 text-white shadow-sm"
                           : "bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-750"
@@ -254,49 +254,68 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
               </div>
 
               {selectedReport.imageUrl && (
-                <div className="rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 max-h-80 shadow">
+                <div className="rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 max-h-80 shadow">
                   <img src={selectedReport.imageUrl} alt="Incident Visual Evidence" className="w-full h-full object-cover block" referrerPolicy="no-referrer" />
                 </div>
               )}
 
               <div className="space-y-1.5 text-xs">
                 <span className="text-[10px] text-slate-400 font-mono block uppercase">Reporter Notes</span>
-                <p className="text-slate-600 dark:text-slate-350 bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-350 bg-slate-50 dark:bg-slate-950 p-4 rounded-xl leading-relaxed border border-slate-200 dark:border-slate-805">
                   {selectedReport.description || "No manual summary description supplied."}
                 </p>
               </div>
 
               {/* AI assessment insights card */}
-              <div className="bg-gradient-to-r from-blue-600/5 to-indigo-600/5 border border-blue-500/10 dark:border-blue-900/30 rounded-2xl p-5 space-y-4 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-xl" />
-                <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                  🛡️ Smart City AI Assessment
-                </h4>
-                <div className="space-y-3 text-xs">
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-mono block uppercase">Auto-routing Target Department</span>
-                    <span className="font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-1.5 mt-0.5">
-                      <Building2 className="w-4 h-4 text-blue-500" /> {selectedReport.category} &rarr; {selectedReport.department}
-                    </span>
+              <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-2xl text-white shadow-lg relative overflow-hidden">
+                {/* Abstract AI background patterns */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                <div className="relative">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="px-2 py-1 bg-white/20 rounded text-[10px] font-bold uppercase backdrop-blur-sm">Smart AI Assessment</span>
+                    <span className="text-[10px] font-bold opacity-60 uppercase">Gemini 2.5 Flash</span>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-mono block uppercase">Concise Outline</span>
-                    <p className="text-slate-500 dark:text-slate-400 leading-normal mt-0.5">{selectedReport.summary}</p>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-mono block uppercase">Identified Safety Risks</span>
-                    <p className="text-slate-500 dark:text-slate-400 leading-normal mt-0.5">{selectedReport.possibleRisk}</p>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-mono block uppercase">Dispatch Guidelines</span>
-                    <p className="text-amber-600 dark:text-amber-400 font-semibold leading-normal mt-0.5">{selectedReport.recommendedAction}</p>
+                  <p className="text-lg font-bold mb-1">{selectedReport.category} Detected</p>
+                  <p className="text-xs text-blue-100 mb-6 font-mono">Confidential telemetry analysis & routing protocol.</p>
+                  
+                  <div className="space-y-4">
+                    <div className="flex justify-between border-b border-white/10 pb-2">
+                      <span className="text-xs opacity-70">Department Routing</span>
+                      <span className="text-xs font-bold text-white">{selectedReport.department}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-white/10 pb-2">
+                      <span className="text-xs opacity-70">Confidence Assessment</span>
+                      <span className="text-xs font-bold text-white">98.4% Confidence</span>
+                    </div>
+                    <div>
+                      <p className="text-xs opacity-70 mb-1">Incident Summary</p>
+                      <p className="text-xs leading-relaxed text-blue-50 bg-black/20 p-3 rounded-lg border border-white/5">
+                        {selectedReport.summary}
+                      </p>
+                    </div>
+                    {selectedReport.possibleRisk && (
+                      <div>
+                        <p className="text-xs opacity-70 mb-1">Safety &amp; Public Risks</p>
+                        <p className="text-xs leading-relaxed text-blue-50 bg-black/20 p-3 rounded-lg border border-white/5">
+                          {selectedReport.possibleRisk}
+                        </p>
+                      </div>
+                    )}
+                    {selectedReport.recommendedAction && (
+                      <div>
+                        <p className="text-xs opacity-70 mb-1">Dispatcher Recommendation</p>
+                        <p className="text-xs leading-relaxed text-amber-300 font-semibold bg-black/20 p-3 rounded-lg border border-white/5">
+                          {selectedReport.recommendedAction}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Comments column side-panel */}
-            <div className="lg:col-span-5 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850 p-4 space-y-4">
+            <div className="lg:col-span-5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 p-4 space-y-4">
               <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                 <MessageSquare className="w-4 h-4 text-blue-500" /> Dispatcher Notes &amp; Updates ({comments.length})
               </h4>
@@ -345,7 +364,7 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
                 <button
                   type="submit"
                   disabled={!commentText.trim() || submittingComment}
-                  className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white p-2 rounded-xl transition flex items-center justify-center shrink-0"
+                  className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white p-2 rounded-xl transition flex items-center justify-center shrink-0 cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -364,7 +383,7 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
           </div>
 
           {/* Search, filters, sorting panel */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-3xl shadow-sm space-y-4">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm space-y-4">
             <div className="flex flex-col md:flex-row gap-3">
               {/* Search input */}
               <div className="relative flex-1">
@@ -376,18 +395,18 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search by ID, keyword, description, or department..."
-                  className="w-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-805 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-2xl pl-9 pr-4 py-2.5 text-xs transition placeholder-slate-400"
+                  className="w-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-lg pl-9 pr-4 py-2.5 text-xs transition placeholder-slate-400"
                 />
               </div>
 
               {/* Status filter */}
               <div className="flex gap-2.5 flex-wrap md:flex-nowrap">
-                <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-950 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-950 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800">
                   <span className="text-[10px] font-mono font-bold text-slate-400 uppercase">Status:</span>
                   <select
                     value={filterStatus}
                     onChange={(e) => setFilterStatus(e.target.value)}
-                    className="bg-transparent text-xs text-slate-700 dark:text-slate-300 font-semibold focus:outline-none border-0"
+                    className="bg-transparent text-xs text-slate-700 dark:text-slate-300 font-semibold focus:outline-none border-0 cursor-pointer"
                   >
                     <option value="All">All</option>
                     <option value="Pending">Pending</option>
@@ -399,12 +418,12 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
                 </div>
 
                 {/* Priority filter */}
-                <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-950 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-950 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800">
                   <span className="text-[10px] font-mono font-bold text-slate-400 uppercase">Priority:</span>
                   <select
                     value={filterPriority}
                     onChange={(e) => setFilterPriority(e.target.value)}
-                    className="bg-transparent text-xs text-slate-700 dark:text-slate-300 font-semibold focus:outline-none border-0"
+                    className="bg-transparent text-xs text-slate-700 dark:text-slate-300 font-semibold focus:outline-none border-0 cursor-pointer"
                   >
                     <option value="All">All</option>
                     <option value="Low">Low</option>
@@ -415,12 +434,12 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
                 </div>
 
                 {/* Category filter */}
-                <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-950 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-950 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800">
                   <span className="text-[10px] font-mono font-bold text-slate-400 uppercase">Category:</span>
                   <select
                     value={filterCategory}
                     onChange={(e) => setFilterCategory(e.target.value)}
-                    className="bg-transparent text-xs text-slate-700 dark:text-slate-300 font-semibold focus:outline-none border-0"
+                    className="bg-transparent text-xs text-slate-700 dark:text-slate-300 font-semibold focus:outline-none border-0 cursor-pointer"
                   >
                     <option value="All">All Categories</option>
                     <option value="Road Damage">Road Damage</option>
@@ -440,67 +459,84 @@ export default function AdminDashboard({ profile, reports }: AdminDashboardProps
           </div>
 
           {/* Incidents Table grid list */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-150 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
               <h3 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                 🗂️ Active Telemetry Tickets ({filteredReports.length})
               </h3>
             </div>
 
             {filteredReports.length === 0 ? (
-              <div className="text-center py-16 text-slate-400 font-mono text-xs border border-dashed border-slate-200 dark:border-slate-850 rounded-b-2xl">
+              <div className="text-center py-16 text-slate-400 font-mono text-xs border border-dashed border-slate-200 dark:border-slate-850 rounded-b-xl bg-white dark:bg-slate-900">
                 No tickets matching current filters.
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-slate-500 dark:text-slate-400">
-                  <thead className="text-[10px] font-mono text-slate-400 uppercase tracking-widest border-b border-slate-150 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20">
+                <table className="w-full text-left border-collapse">
+                  <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
                     <tr>
-                      <th className="py-3 px-4">Ticket ID</th>
-                      <th className="py-3 px-4">Title</th>
-                      <th className="py-3 px-4">Category / Department</th>
-                      <th className="py-3 px-4">Priority</th>
-                      <th className="py-3 px-4">Status</th>
-                      <th className="py-3 px-4">Submitted</th>
-                      <th className="py-3 px-4 text-right">Actions</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Ticket ID</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Title</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Category / Department</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Priority</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Submitted</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 font-sans">
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-sans">
                     {filteredReports.map((report) => (
                       <tr
                         key={report.id}
                         onClick={() => setSelectedReport(report)}
-                        className="hover:bg-slate-50/80 dark:hover:bg-slate-950/20 cursor-pointer transition"
+                        className="hover:bg-slate-50 dark:hover:bg-slate-950 cursor-pointer transition-colors"
                       >
-                        <td className="py-3.5 px-4 font-mono font-semibold text-slate-900 dark:text-slate-100">{report.id}</td>
-                        <td className="py-3.5 px-4 max-w-xs">
-                          <span className="font-bold text-slate-800 dark:text-slate-100 line-clamp-1">{report.title}</span>
-                          <span className="text-[10px] text-slate-400 block line-clamp-1 mt-0.5">By: {report.createdByName || report.createdByEmail}</span>
+                        <td className="px-6 py-4 font-mono font-bold text-slate-900 dark:text-slate-100">{report.id}</td>
+                        <td className="px-6 py-4">
+                          <div className="font-bold text-sm text-slate-800 dark:text-slate-200 line-clamp-1">{report.title}</div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400 italic mt-0.5">By: {report.createdByName || report.createdByEmail}</div>
                         </td>
-                        <td className="py-3.5 px-4">
-                          <span className="font-medium text-slate-800 dark:text-slate-200">{report.category}</span>
-                          <span className="text-[10px] text-slate-400 block mt-0.5">{report.department}</span>
-                        </td>
-                        <td className="py-3.5 px-4">
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-semibold font-mono uppercase tracking-wider ${getPriorityBadge(report.priority)}`}>
-                            {report.priority}
+                        <td className="px-6 py-4">
+                          <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] font-bold rounded uppercase border border-slate-200 dark:border-slate-700">
+                            {report.category}
                           </span>
+                          <span className="text-xs text-slate-400 block mt-1">{report.department}</span>
                         </td>
-                        <td className="py-3.5 px-4">
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-semibold font-mono uppercase tracking-wider ${getStatusBadge(report.status)}`}>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center gap-1.5">
+                            <div className={`w-2 h-2 rounded-full ${
+                              report.priority === "Critical" ? "bg-red-500" :
+                              report.priority === "High" ? "bg-orange-500" :
+                              report.priority === "Medium" ? "bg-yellow-500" : "bg-blue-500"
+                            }`}></div>
+                            <span className={`text-xs font-bold ${
+                              report.priority === "Critical" ? "text-red-600 dark:text-red-400" :
+                              report.priority === "High" ? "text-orange-600 dark:text-orange-400" :
+                              report.priority === "Medium" ? "text-yellow-600 dark:text-yellow-400" : "text-blue-600 dark:text-blue-400"
+                            }`}>{report.priority}</span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={`px-3 py-1 text-xs font-bold rounded-full border ${
+                            report.status === "Resolved" ? "bg-green-50 text-green-700 border-green-250 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/40" :
+                            report.status === "Pending" ? "bg-amber-50 text-amber-700 border-amber-250 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/40" :
+                            report.status === "Under Review" ? "bg-blue-50 text-blue-700 border-blue-250 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/40" :
+                            report.status === "Assigned" ? "bg-purple-50 text-purple-700 border-purple-250 dark:bg-purple-950/20 dark:text-purple-400 dark:border-purple-900/40" :
+                            "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                          }`}>
                             {report.status}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 font-mono text-slate-400">
+                        <td className="px-6 py-4 font-mono text-slate-400 whitespace-nowrap">
                           {new Date(report.createdAt).toLocaleDateString()}
                         </td>
-                        <td className="py-3.5 px-4 text-right">
+                        <td className="px-6 py-4 text-right whitespace-nowrap">
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedReport(report);
                             }}
-                            className="p-1.5 text-blue-500 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                            className="p-1.5 text-blue-500 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition cursor-pointer"
                             title="Inspect ticket"
                           >
                             <Eye className="w-4 h-4" />

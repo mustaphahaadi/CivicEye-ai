@@ -182,19 +182,19 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans flex flex-col md:flex-row relative">
+    <div className="min-h-screen bg-[#F1F5F9] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans flex flex-col md:flex-row relative">
       
       {/* 1. Mobile Top Bar Header */}
-      <header className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-850 px-4 py-3 flex justify-between items-center shrink-0 w-full z-30">
+      <header className="md:hidden bg-[#0F172A] border-b border-slate-800 px-4 py-3 flex justify-between items-center shrink-0 w-full z-30">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black text-sm">
             C
           </div>
-          <span className="font-bold text-slate-900 dark:text-white text-sm">CivicEye</span>
+          <span className="text-lg font-bold tracking-tight text-white">Civic<span className="text-blue-500">Eye</span> AI</span>
         </div>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-1.5 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+          className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
         >
           {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -202,20 +202,17 @@ export default function App() {
 
       {/* 2. Responsive Dashboard Sidebar Navigation */}
       <aside
-        className={`fixed md:sticky top-0 left-0 h-screen w-64 bg-slate-900 border-r border-slate-800 text-slate-300 flex flex-col z-40 transition-transform duration-300 md:translate-x-0 ${
+        className={`fixed md:sticky top-0 left-0 h-screen w-64 bg-[#0F172A] border-r border-slate-800/80 text-white flex flex-col z-40 transition-transform duration-300 md:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full md:block"
         }`}
       >
         {/* Brand Header */}
-        <div className="p-6 border-b border-slate-800 flex justify-between items-center">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-base shadow-lg shadow-blue-500/20">
+        <div className="p-6 flex items-center justify-between border-b border-slate-800 shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white shrink-0">
               C
             </div>
-            <div>
-              <span className="font-black text-white text-sm tracking-tight block">CivicEye</span>
-              <span className="text-[8px] font-mono text-blue-400 uppercase tracking-widest font-bold block">Smart City Portal</span>
-            </div>
+            <span className="text-xl font-bold tracking-tight text-white">Civic<span className="text-blue-500">Eye</span> AI</span>
           </div>
           <button
             onClick={() => setSidebarOpen(false)}
@@ -225,23 +222,8 @@ export default function App() {
           </button>
         </div>
 
-        {/* User Identity Profile Badge */}
-        {profile && (
-          <div className="p-4 border-b border-slate-800 bg-slate-950/40 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-base font-black shadow-inner">
-              {profile.displayName?.charAt(0).toUpperCase() || "C"}
-            </div>
-            <div className="min-w-0 flex-1">
-              <span className="font-bold text-slate-200 text-xs truncate block">{profile.displayName}</span>
-              <span className="text-[9px] font-mono text-emerald-400 uppercase tracking-widest font-bold block mt-0.5">
-                {profile.role === "authority" ? "Dispatch Agency" : "Local Citizen"}
-              </span>
-            </div>
-          </div>
-        )}
-
         {/* Nav links scroller */}
-        <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto">
+        <nav className="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isSelected = activePage === link.id;
@@ -252,26 +234,43 @@ export default function App() {
                   setActivePage(link.id);
                   setSidebarOpen(false);
                 }}
-                className={`w-full py-2.5 px-3.5 rounded-xl text-left text-xs font-semibold flex items-center gap-3 transition-all ${
+                className={`w-full px-3 py-2 rounded-md text-left text-sm font-medium flex items-center gap-3 transition-colors cursor-pointer ${
                   isSelected
-                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/10"
-                    : "hover:bg-slate-800 hover:text-white text-slate-400"
+                    ? "bg-blue-600/10 text-blue-400 font-semibold"
+                    : "text-slate-400 hover:text-white"
                 }`}
               >
-                <Icon className={`w-4 h-4 shrink-0 ${isSelected ? "text-white" : "text-slate-500"}`} />
+                <Icon className={`w-5 h-5 shrink-0 ${isSelected ? "text-blue-400" : "text-slate-400"}`} />
                 <span>{link.label}</span>
               </button>
             );
           })}
         </nav>
 
+        {/* User Identity Profile Badge */}
+        {profile && (
+          <div className="p-4 border-t border-slate-800 shrink-0">
+            <div className="flex items-center gap-3 p-2 rounded-lg bg-slate-800/50">
+              <div className="w-10 h-10 rounded-full bg-slate-600 flex items-center justify-center text-xs font-bold shrink-0 text-white">
+                {profile.displayName?.slice(0, 2).toUpperCase() || "JD"}
+              </div>
+              <div className="flex-1 overflow-hidden">
+                <p className="text-sm font-semibold truncate text-white">{profile.displayName}</p>
+                <p className="text-xs text-slate-400 truncate">
+                  {profile.role === "authority" ? "Verified Dispatcher" : "Verified Citizen"}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Sidebar Footer */}
-        <div className="p-4 border-t border-slate-800">
+        <div className="p-4 border-t border-slate-800 shrink-0">
           <button
             onClick={handleLogout}
-            className="w-full py-2.5 px-3 rounded-xl hover:bg-red-950/40 hover:text-red-400 text-slate-500 text-xs font-semibold flex items-center gap-3 transition"
+            className="w-full px-3 py-2 text-slate-400 hover:text-red-400 rounded-md flex items-center gap-3 text-sm font-medium transition-colors cursor-pointer"
           >
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-5 h-5 shrink-0" />
             <span>Portal Logout</span>
           </button>
         </div>

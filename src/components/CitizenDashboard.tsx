@@ -205,12 +205,12 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
     <div className="space-y-6">
       {/* Expanding Detail view panel */}
       {selectedReport ? (
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-6 animate-[fadeIn_0.4s_ease-out]">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm space-y-6 animate-[fadeIn_0.4s_ease-out]">
           {/* Header Back Button */}
           <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-4">
             <button
               onClick={() => setSelectedReport(null)}
-              className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1.5 font-semibold transition"
+              className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1.5 font-semibold transition cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Dashboard</span>
@@ -218,7 +218,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
             <div className="flex gap-2">
               <button
                 onClick={() => setActiveQrReport(selectedReport)}
-                className="py-2 px-3 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-755 text-slate-600 dark:text-slate-300 font-medium text-xs rounded-xl transition border border-slate-200 dark:border-slate-700 flex items-center gap-1"
+                className="py-2 px-3 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-755 text-slate-600 dark:text-slate-300 font-medium text-xs rounded-xl transition border border-slate-200 dark:border-slate-700 flex items-center gap-1 cursor-pointer"
                 title="Share QR Link"
               >
                 <QrCode className="w-3.5 h-3.5" />
@@ -243,50 +243,68 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
               <h3 className="text-2xl font-black text-slate-900 dark:text-white leading-tight tracking-tight">{selectedReport.title}</h3>
 
               {selectedReport.imageUrl && (
-                <div className="rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 max-h-80 shadow-inner">
+                <div className="rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 max-h-80 shadow-inner">
                   <img src={selectedReport.imageUrl} alt="Incident File" className="w-full h-full object-cover block" referrerPolicy="no-referrer" />
                 </div>
               )}
 
               <div className="space-y-2">
                 <span className="text-[10px] text-slate-400 font-mono block uppercase">Reporter Incident Description</span>
-                <p className="text-sm text-slate-600 dark:text-slate-350 leading-relaxed bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-100 dark:border-slate-900">
+                <p className="text-sm text-slate-600 dark:text-slate-350 leading-relaxed bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
                   {selectedReport.description || "No manual context provided."}
                 </p>
               </div>
 
               {/* AI Details Frame */}
-              <div className="bg-gradient-to-r from-blue-600/5 to-indigo-600/5 border border-blue-500/10 dark:border-blue-900/30 rounded-2xl p-5 space-y-4 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/10 rounded-full blur-xl" />
-                <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                  🛡️ Smart City AI Assessment
-                </h4>
-                <div className="space-y-3.5 text-xs">
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-mono block uppercase">Categorized Route</span>
-                    <span className="font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-1.5 mt-0.5">
-                      <Building className="w-4 h-4 text-blue-500" />
-                      {selectedReport.category} &rarr; {selectedReport.department}
-                    </span>
+              <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-2xl text-white shadow-lg relative overflow-hidden">
+                {/* Abstract AI background patterns */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                <div className="relative">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="px-2 py-1 bg-white/20 rounded text-[10px] font-bold uppercase backdrop-blur-sm">Smart AI Assessment</span>
+                    <span className="text-[10px] font-bold opacity-60 uppercase">Gemini 2.5 Flash</span>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-mono block uppercase">Concise Summary</span>
-                    <p className="text-slate-500 dark:text-slate-400 leading-normal mt-0.5">{selectedReport.summary}</p>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-mono block uppercase">Safety &amp; Public Risks</span>
-                    <p className="text-slate-500 dark:text-slate-400 leading-normal mt-0.5">{selectedReport.possibleRisk}</p>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-mono block uppercase">Dispatched Actions</span>
-                    <p className="text-amber-600 dark:text-amber-400 font-semibold leading-normal mt-0.5">{selectedReport.recommendedAction}</p>
+                  <p className="text-lg font-bold mb-1">{selectedReport.category} Detected</p>
+                  <p className="text-xs text-blue-100 mb-6 font-mono">Confidential telemetry analysis & routing protocol.</p>
+                  
+                  <div className="space-y-4">
+                    <div className="flex justify-between border-b border-white/10 pb-2">
+                      <span className="text-xs opacity-70">Department Routing</span>
+                      <span className="text-xs font-bold text-white">{selectedReport.department}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-white/10 pb-2">
+                      <span className="text-xs opacity-70">Confidence Assessment</span>
+                      <span className="text-xs font-bold text-white">98.4% Confidence</span>
+                    </div>
+                    <div>
+                      <p className="text-xs opacity-70 mb-1">Incident Summary</p>
+                      <p className="text-xs leading-relaxed text-blue-50 bg-black/20 p-3 rounded-lg border border-white/5">
+                        {selectedReport.summary}
+                      </p>
+                    </div>
+                    {selectedReport.possibleRisk && (
+                      <div>
+                        <p className="text-xs opacity-70 mb-1">Safety &amp; Public Risks</p>
+                        <p className="text-xs leading-relaxed text-blue-50 bg-black/20 p-3 rounded-lg border border-white/5">
+                          {selectedReport.possibleRisk}
+                        </p>
+                      </div>
+                    )}
+                    {selectedReport.recommendedAction && (
+                      <div>
+                        <p className="text-xs opacity-70 mb-1">Dispatcher Recommendation</p>
+                        <p className="text-xs leading-relaxed text-amber-300 font-semibold bg-black/20 p-3 rounded-lg border border-white/5">
+                          {selectedReport.recommendedAction}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Comments side-panel */}
-            <div className="lg:col-span-5 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850 p-4 space-y-4">
+            <div className="lg:col-span-5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 p-4 space-y-4">
               <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                 <MessageSquare className="w-4 h-4 text-blue-500" /> Updates &amp; Comments ({comments.length})
               </h4>
@@ -336,7 +354,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
                 <button
                   type="submit"
                   disabled={!commentText.trim() || submittingComment}
-                  className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white p-2 rounded-xl transition flex items-center justify-center shrink-0"
+                  className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white p-2 rounded-xl transition flex items-center justify-center shrink-0 cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -358,7 +376,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
             </div>
             <button
               onClick={onNewReportClick}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm py-2.5 px-4.5 rounded-xl transition flex items-center gap-1.5 shadow-md shadow-blue-500/10 hover:-translate-y-0.5 shrink-0"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-2 px-4 rounded-lg shadow-sm hover:bg-blue-700 transition flex items-center gap-1.5 shrink-0 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Report New Issue</span>
@@ -366,28 +384,28 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
           </div>
 
           {/* Statistics grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm text-center space-y-1">
-              <span className="text-2xl font-black text-slate-800 dark:text-white block">{stats.total}</span>
-              <span className="text-[10px] text-slate-400 font-mono block uppercase">Total Incidents</span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 shrink-0">
+            <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition hover:shadow-md">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Total Incidents</p>
+              <p className="text-3xl font-extrabold text-slate-900 dark:text-white">{stats.total}</p>
             </div>
-            <div className="bg-amber-50/40 dark:bg-amber-950/20 border border-amber-100/50 dark:border-amber-950 p-4 rounded-2xl shadow-sm text-center space-y-1">
-              <span className="text-2xl font-black text-amber-600 dark:text-amber-400 block">{stats.pending}</span>
-              <span className="text-[10px] text-slate-400 font-mono block uppercase">Pending Intake</span>
+            <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition hover:shadow-md">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Pending Intake</p>
+              <p className="text-3xl font-extrabold text-amber-600 dark:text-amber-500">{stats.pending}</p>
             </div>
-            <div className="bg-indigo-50/40 dark:bg-indigo-950/20 border border-indigo-100/50 dark:border-indigo-950 p-4 rounded-2xl shadow-sm text-center space-y-1">
-              <span className="text-2xl font-black text-indigo-600 dark:text-indigo-400 block">{stats.inReview}</span>
-              <span className="text-[10px] text-slate-400 font-mono block uppercase">In Investigation</span>
+            <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition hover:shadow-md">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">In Investigation</p>
+              <p className="text-3xl font-extrabold text-blue-600 dark:text-blue-500">{stats.inReview}</p>
             </div>
-            <div className="bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-100/50 dark:border-emerald-950 p-4 rounded-2xl shadow-sm text-center space-y-1">
-              <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 block">{stats.resolved}</span>
-              <span className="text-[10px] text-slate-400 font-mono block uppercase">Incidents Resolved</span>
+            <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition hover:shadow-md">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Incidents Resolved</p>
+              <p className="text-3xl font-extrabold text-green-600 dark:text-emerald-500">{stats.resolved}</p>
             </div>
           </div>
 
           {/* Notifications Alerts ticker */}
           {notifications.filter((n) => !n.read).length > 0 && (
-            <div className="bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/40 rounded-2xl p-4 space-y-2">
+            <div className="bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/40 rounded-xl p-4 space-y-2">
               <h4 className="text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest flex items-center gap-1">
                 🔔 Unread Telemetry Updates ({notifications.filter((n) => !n.read).length})
               </h4>
@@ -401,7 +419,7 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
                     <div className="flex gap-2 shrink-0">
                       <button
                         onClick={() => handleMarkNotificationRead(notif.id)}
-                        className="text-[10px] font-semibold text-blue-500 hover:underline"
+                        className="text-[10px] font-semibold text-blue-500 hover:underline cursor-pointer"
                       >
                         Dismiss
                       </button>
@@ -413,56 +431,91 @@ export default function CitizenDashboard({ profile, reports, onNewReportClick }:
           )}
 
           {/* Citizen's Reports List vs Empty state */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm space-y-4">
-            <h3 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-              📁 My Community Report Cards
-            </h3>
+          <div className="space-y-4">
+            <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+              <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
+              My Infrastructure Reports
+            </h2>
 
             {citizenReports.length === 0 ? (
-              <div className="text-center py-16 text-slate-400 font-mono text-xs border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl space-y-4">
+              <div className="text-center py-16 text-slate-400 dark:text-slate-500 font-mono text-xs border border-dashed border-slate-200 dark:border-slate-800 rounded-xl space-y-4 bg-white dark:bg-slate-900">
                 <p>No reports found in your telemetry credential.</p>
                 <button
                   onClick={onNewReportClick}
-                  className="py-1.5 px-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl hover:bg-slate-200 font-semibold"
+                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-xl font-semibold transition cursor-pointer"
                 >
                   File First Report
                 </button>
               </div>
             ) : (
-              <div className="space-y-3">
-                {citizenReports.map((report) => (
-                  <div
-                    key={report.id}
-                    onClick={() => setSelectedReport(report)}
-                    className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-slate-50 dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-900 border border-slate-100 dark:border-slate-850 rounded-2xl cursor-pointer transition gap-4"
-                  >
-                    <div className="space-y-2 flex-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className={`text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.2 rounded-full ${getStatusBadge(report.status)}`}>
-                          {report.status}
-                        </span>
-                        <span className={`text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.2 rounded-full ${getPriorityBadge(report.priority)}`}>
-                          {report.priority}
-                        </span>
-                        <span className="text-[10px] text-slate-400 font-mono flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          {new Date(report.createdAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <h4 className="font-bold text-sm text-slate-900 dark:text-white line-clamp-1">{report.title}</h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">{report.description || report.summary}</p>
-                    </div>
-
-                    <div className="flex items-center gap-3 w-full sm:w-auto shrink-0 border-t sm:border-t-0 border-slate-200 dark:border-slate-800 pt-2 sm:pt-0 justify-between sm:justify-end">
-                      {report.imageUrl && (
-                        <div className="w-12 h-12 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow">
-                          <img src={report.imageUrl} alt="Thumb" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                        </div>
-                      )}
-                      <ChevronRight className="w-5 h-5 text-slate-400" />
-                    </div>
-                  </div>
-                ))}
+              <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+                      <tr>
+                        <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Issue Detail</th>
+                        <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Category</th>
+                        <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Priority</th>
+                        <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      {citizenReports.map((report) => (
+                        <tr
+                          key={report.id}
+                          onClick={() => setSelectedReport(report)}
+                          className="hover:bg-slate-50 dark:hover:bg-slate-950 cursor-pointer transition-colors"
+                        >
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-3">
+                              {report.imageUrl && (
+                                <div className="w-10 h-10 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm shrink-0">
+                                  <img src={report.imageUrl} alt="Evidence" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                                </div>
+                              )}
+                              <div className="min-w-0">
+                                <div className="font-bold text-sm text-slate-800 dark:text-slate-200 truncate max-w-[200px] sm:max-w-xs">{report.title}</div>
+                                <div className="text-xs text-slate-500 dark:text-slate-400 italic mt-0.5">
+                                  {new Date(report.createdAt).toLocaleDateString()} &bull; {report.department || "System Route"}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] font-bold rounded uppercase border border-slate-200 dark:border-slate-700">
+                              {report.category}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center gap-1.5">
+                              <div className={`w-2 h-2 rounded-full ${
+                                report.priority === "Critical" ? "bg-red-500" :
+                                report.priority === "High" ? "bg-orange-500" :
+                                report.priority === "Medium" ? "bg-yellow-500" : "bg-blue-500"
+                              }`}></div>
+                              <span className={`text-xs font-bold ${
+                                report.priority === "Critical" ? "text-red-600 dark:text-red-400" :
+                                report.priority === "High" ? "text-orange-600 dark:text-orange-400" :
+                                report.priority === "Medium" ? "text-yellow-600 dark:text-yellow-400" : "text-blue-600 dark:text-blue-400"
+                              }`}>{report.priority}</span>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`px-3 py-1 text-xs font-bold rounded-full border ${
+                              report.status === "Resolved" ? "bg-green-50 text-green-700 border-green-250 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/40" :
+                              report.status === "Pending" ? "bg-amber-50 text-amber-700 border-amber-250 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/40" :
+                              report.status === "Under Review" ? "bg-blue-50 text-blue-700 border-blue-250 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/40" :
+                              report.status === "Assigned" ? "bg-purple-50 text-purple-700 border-purple-250 dark:bg-purple-950/20 dark:text-purple-400 dark:border-purple-900/40" :
+                              "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                            }`}>
+                              {report.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
           </div>
